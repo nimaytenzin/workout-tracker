@@ -6,55 +6,65 @@ The application must strictly map exercises to their specific anatomical muscle 
 
 Implement the following 5-Day Workout Architecture into the tracker view:
 
-#### DAY 1: PUSH DAY (Focus: Anterior & Extension) — Optimized Flow
-*   Exercise 1: Barbell Flat Bench Press [Targets: Pectoralis Major - Sternocostal head, Lateral Triceps]
-*   Exercise 2: Incline DB Press [Targets: Pectoralis Major - Clavicular head]
-*   Exercise 3: Seated Dumbbell Shoulder Press [Targets: Anterior Deltoid]
-*   Exercise 4: Standing Cable Lateral Raise [Targets: Lateral Deltoid]
-*   Exercise 5: High to Low Cable [Targets: Pectoralis Major - Lower fibers]
-*   Exercise 6: Overhead Dumbbell Triceps Extension [Targets: Triceps Brachii - Long head]
-*   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Brachii - Lateral & Medial heads]
+#### DAY 1: PUSH DAY (Anterior & Extension Focus)
+Sequence: Heavy Compound → Stretch-Emphasized → Isolation
 
-#### DAY 2: PULL DAY (Focus: Posterior & Flexion)
-*   Exercise 1: Wide-Grip Lat Pulldown [Targets: Latissimus Dorsi - Thoracic fibers]
-*   Exercise 2: Single-Arm Neutral Grip Cable Row [Targets: Latissimus Dorsi - Iliac/Lumbar fibers]
-*   Exercise 3: Chest Supported DB Row [Targets: Rhomboids & Mid-Trapezius]
+*   Exercise 1: Barbell Flat Bench Press [Targets: Sternocostal Chest, Lateral Triceps]
+*   Exercise 2: Incline Dumbbell Press [Targets: Clavicular Chest]
+*   Exercise 3: Standing Cable Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 4: Seated Dumbbell Shoulder Press [Targets: Anterior Deltoid]
+*   Exercise 5: High to Low Cable Flye [Targets: Lower Pec Fibers]
+*   Exercise 6: Overhead Dumbbell Triceps Extension [Targets: Triceps Long Head]
+*   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Lateral & Medial Heads]
+
+#### DAY 2: PULL DAY (Posterior & Flexion Focus)
+Sequence: Width → Thickness → Unilateral → Rear Delts → Biceps Length → Biceps Peak
+
+*   Exercise 1: Wide-Grip Lat Pulldown [Targets: Thoracic Lats]
+*   Exercise 2: Chest Supported Dumbbell Row [Targets: Rhomboids & Mid-Traps]
+*   Exercise 3: Single-Arm Neutral Grip Cable Row [Targets: Iliac/Lumbar Lats]
 *   Exercise 4: Rear Delt Cable Flyes [Targets: Posterior Deltoid]
-*   Exercise 5: Bayesian Curl [Targets: Biceps Brachii - Long head]
-*   Exercise 6: Preacher Curl [Targets: Biceps Brachii - Short head]
-*   Exercise 7: Cable Hammer Curl [Targets: Brachialis & Brachioradialis]
+*   Exercise 5: Bayesian Curl [Targets: Biceps Long Head]
+*   Exercise 6: Preacher Curl [Targets: Biceps Short Head]
+*   Exercise 7 (Week A only): Reverse Grip EZ Bar Curl [Targets: Brachioradialis & Brachialis — optional finisher, 2 sets]
 
-#### DAY 3: LEGS & ABS (Focus: High-Efficiency Lower Body)
-*   Exercise 1: Seated Leg Extensions [Targets: Rectus Femoris]
-*   Exercise 2: Barbell Squat [Targets: Vastus Lateralis & Intermedius, Gluteus Maximus]
-*   Exercise 3: Romanian Deadlift (Week A) OR Barbell Hip Thrust (Week B) [Alternates weekly]
-*   Exercise 4: Seated Leg Curl [Targets: Hamstrings - Knee Flexion]
+#### DAY 3: LEGS & ABS (High-Efficiency Lower Body)
+Sequence: Pre-Exhaust Quads → Compound → Hinge/Glute → Hamstring Isolation → Calves → Abs
+
+*   Exercise 1: Seated Leg Extensions [Targets: Rectus Femoris Pre-Exhaust]
+*   Exercise 2: Barbell Squat [Targets: Total Quads & Glutes]
+*   Exercise 3: Romanian Deadlift (Week A) OR Barbell Hip Thrust (Week B) [Hamstrings/Glutes Alternate]
+*   Exercise 4: Seated Leg Curl [Targets: Hamstring Knee Flexion]
 *   Exercise 5: Standing Calf Raises [Targets: Gastrocnemius]
-*   Exercise 6: Weighted Rope Cable Crunches [Targets: Rectus Abdominis - Upper Fibers]
+*   Exercise 6: Weighted Rope Cable Crunches [Targets: Upper Rectus Abdominis]
 *   Exercise 7: Cable Woodchopper [Targets: Obliques & Transversus Abdominis]
 
-#### DAY 4: UPPER DAY (Focus: Antagonist Compound Duels)
+#### DAY 4: UPPER DAY (Antagonist Compound Duels)
+Sequence: Horizontal Duel → Vertical Duel → Isolation Finishers
+
 **Duel 1 (Horizontal Plane)**
 *   Exercise 1: Flat Dumbbell Bench Press [Targets: Sternocostal Chest]
-*   Exercise 2: Chest-Supported DB Row [Targets: Rhomboids & Mid-Trapezius]
+*   Exercise 2: Chest-Supported Dumbbell Row [Targets: Rhomboids & Mid-Traps]
 
 **Duel 2 (Vertical Plane)**
 *   Exercise 3: Seated Dumbbell or Smith Machine Shoulder Press [Targets: Anterior Deltoid]
 *   Exercise 4: Close-Grip Neutral Lat Pulldown [Targets: Lower Lats]
 
-**The Finisher (Isolation)**
-*   Exercise 5: Behind-the-Back Cable Lateral Raise [Targets: Lateral Deltoid]
-*   Exercise 6: Cable Bicep Curls [Targets: Biceps Brachii]
-*   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Brachii - Lateral & Medial heads]
+**The Finishers**
+*   Exercise 5: Cable Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 6: Cable Bicep Curls [Targets: Total Biceps]
+*   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Lateral & Medial Heads]
 
-#### DAY 5: LOWER DAY & ABS (Focus: Heavy Axial Loading)
-*   Exercise 1: Barbell Back Squat [Targets: Total Quads & Glutes]
-*   Exercise 2: Leg Press (Full Depth) [Targets: Quads Overload]
+#### DAY 5: LOWER DAY & ABS (Heavy Axial Loading)
+Sequence: Heavy Squat → Accessory Press → Heavy Hinge → Isolations → Calves → Abs
+
+*   Exercise 1: Barbell Back Squat [Targets: Total Quads & Glutes — Strength Focus]
+*   Exercise 2: Leg Press (Full Depth) [Targets: Quad Overload]
 *   Exercise 3: Romanian Deadlift [Targets: Total Hamstrings]
-*   Exercise 4: Seated Leg Curl [Targets: Hamstring Knee-Flexion]
+*   Exercise 4: Seated Leg Curl [Targets: Hamstring Knee Flexion]
 *   Exercise 5: Seated Calf Raise [Targets: Soleus]
-*   Exercise 6: Hanging Leg Raises [Targets: Rectus Abdominis - Lower Fibers & Transversus Abdominis]
-*   Exercise 7: Cable Crunches [Targets: Rectus Abdominis - Upper Fibers]
+*   Exercise 6: Hanging Leg Raises [Targets: Lower Rectus Abdominis & Transversus Abdominis]
+*   Exercise 7: Cable Crunches [Targets: Upper Rectus Abdominis]
 
 ### 2. DATA INPUTS & FUNCTIONAL REQUIREMENTS
 

@@ -93,6 +93,9 @@ export function DayWorkoutOverview({
             {day.id === 'legs-abs' && (
               <p className="mt-1 text-xs text-primary">{getAlternatingWeekLabel()} · hinge alternates weekly</p>
             )}
+            {day.id === 'pull' && (
+              <p className="mt-1 text-xs text-primary">{getAlternatingWeekLabel()} · EZ curl finisher on Week A only</p>
+            )}
           </div>
           <Button
             type="button"
