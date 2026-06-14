@@ -1,5 +1,6 @@
 import type { MuscleRecoveryStatus, UserId } from '@/types'
 import { MuscleBodyDiagram, sexForUser } from '@/components/MuscleBodyDiagram'
+import { RECOVERY_TO_SLUGS } from '@/utils/recoveryBodyMap'
 
 interface RecoveryDashboardProps {
   statuses: MuscleRecoveryStatus[]
@@ -15,7 +16,7 @@ export function RecoveryDashboard({ statuses, userId }: RecoveryDashboardProps) 
       <div>
         <h3 className="text-base font-semibold">Muscle Recovery</h3>
         <p className="text-sm text-muted-foreground">
-          {sexLabel} body map · tap a muscle for details · 48h timers after workouts
+          {sexLabel} anatomy · tap a muscle · {Object.keys(RECOVERY_TO_SLUGS).length} muscle groups tracked
         </p>
       </div>
 

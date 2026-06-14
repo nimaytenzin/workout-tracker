@@ -1,125 +1,94 @@
 import { useMemo, useState } from 'react'
+import Body, { type ExtendedBodyPart, type Slug } from 'react-muscle-highlighter'
 import type { MuscleRecoveryStatus, RecoveryGroupId, UserId } from '@/types'
-import { RECOVERY_GROUPS } from '@/data/muscleGroups'
-import {
-  BODY_REGIONS,
-  BODY_SILHOUETTE,
-  type BodySex,
-  type BodyView,
-} from '@/data/bodyDiagramPaths'
 import { recoveryColor } from '@/utils/recovery'
+import {
+  RECOVERY_TO_SLUGS,
+  SLUG_TO_RECOVERY_GROUP,
+} from '@/utils/recoveryBodyMap'
 import { cn } from '@/lib/utils'
 
 interface MuscleBodyDiagramProps {
-  sex: BodySex
+  sex: 'male' | 'female'
   statuses: MuscleRecoveryStatus[]
   className?: string
 }
 
-function statusMap(statuses: MuscleRecoveryStatus[]) {
-  return new Map(statuses.map((s) => [s.group, s]))
+function buildBodyData(statuses: MuscleRecoveryStatus[]): ExtendedBodyPart[] {
+  const statusMap = new Map(statuses.map((s) => [s.group, s]))
+
+  return (Object.keys(RECOVERY_TO_SLUGS) as RecoveryGroupId[]).flatMap((group) => {
+    const status = statusMap.get(group)?.status ?? 'recovered'
+    const color = recoveryColor(status)
+    return RECOVERY_TO_SLUGS[group].map((slug) => ({ slug, color }))
+  })
 }
 
-function regionFill(
-  group: RecoveryGroupId,
-  map: Map<RecoveryGroupId, MuscleRecoveryStatus>,
-): { fill: string; opacity: number } {
-  const status = map.get(group)?.status ?? 'recovered'
-  const fill = recoveryColor(status)
-  const opacity = status === 'fatigued' ? 1 : status === 'recovering' ? 0.88 : 0.62
-  return { fill, opacity }
-}
-
-function BodyFigure({
+function BodyView({
+  side,
   sex,
-  view,
-  statuses,
-  selected,
+  data,
   onSelect,
 }: {
-  sex: BodySex
-  view: BodyView
-  statuses: MuscleRecoveryStatus[]
-  selected: RecoveryGroupId | null
-  onSelect: (group: RecoveryGroupId | null) => void
+  side: 'front' | 'back'
+  sex: 'male' | 'female'
+  data: ExtendedBodyPart[]
+  onSelect: (group: RecoveryGroupId) => void
 }) {
-  const map = useMemo(() => statusMap(statuses), [statuses])
-  const regions = BODY_REGIONS[sex][view]
-  const silhouette = BODY_SILHOUETTE[sex][view]
-
   return (
     <div className="flex flex-col items-center">
-      <p className="mb-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-        {view}
+      <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+        {side}
       </p>
-      <svg
-        viewBox="0 0 100 200"
-        className="h-auto w-full max-w-[140px]"
-        role="img"
-        aria-label={`${sex} body ${view} view muscle recovery`}
-      >
-        <path
-          d={silhouette}
-          fill="currentColor"
-          className="text-muted/25"
-          stroke="currentColor"
-          strokeWidth="0.6"
-          strokeLinejoin="round"
+      <div className="w-full max-w-[168px]">
+        <Body
+          data={data}
+          side={side}
+          gender={sex}
+          scale={0.82}
+          border="#64748b"
+          defaultFill="#1e293b"
+          defaultStroke="#334155"
+          defaultStrokeWidth={0.5}
+          hiddenParts={['hair']}
+          onBodyPartPress={(part) => {
+            const group = part.slug
+              ? SLUG_TO_RECOVERY_GROUP[part.slug as Slug]
+              : undefined
+            if (!group) return
+            onSelect(group)
+          }}
         />
-        {regions.map((region) => {
-          const { fill, opacity } = regionFill(region.group, map)
-          const active = selected === region.group
-          const meta = map.get(region.group)
-          const label = RECOVERY_GROUPS[region.group].label
-
-          return (
-            <path
-              key={`${view}-${region.group}`}
-              d={region.d}
-              fill={fill}
-              fillOpacity={opacity}
-              stroke={active ? fill : 'rgba(255,255,255,0.35)'}
-              strokeWidth={active ? 1.2 : 0.4}
-              className="cursor-pointer touch-manipulation transition-opacity"
-              onClick={() => onSelect(active ? null : region.group)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  onSelect(active ? null : region.group)
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={`${label}: ${meta?.status ?? 'recovered'}`}
-            />
-          )
-        })}
-      </svg>
+      </div>
     </div>
   )
 }
 
 export function MuscleBodyDiagram({ sex, statuses, className }: MuscleBodyDiagramProps) {
   const [selected, setSelected] = useState<RecoveryGroupId | null>(null)
-  const map = useMemo(() => statusMap(statuses), [statuses])
-  const selectedMeta = selected ? map.get(selected) : undefined
+  const bodyData = useMemo(() => buildBodyData(statuses), [statuses])
+  const selectedMeta = selected
+    ? statuses.find((s) => s.group === selected)
+    : undefined
+
+  const handleSelect = (group: RecoveryGroupId) => {
+    setSelected((prev) => (prev === group ? null : group))
+  }
 
   return (
     <div className={cn('space-y-3', className)}>
-      <div className="grid grid-cols-2 gap-4 rounded-2xl border border-border/50 bg-muted/15 px-4 py-5">
-        <BodyFigure
+      <div className="grid grid-cols-2 gap-2 rounded-2xl border border-border/50 bg-gradient-to-b from-muted/25 to-muted/10 px-2 py-4 sm:gap-4 sm:px-4">
+        <BodyView
+          side="front"
           sex={sex}
-          view="front"
-          statuses={statuses}
-          selected={selected}
-          onSelect={setSelected}
+          data={bodyData}
+          onSelect={handleSelect}
         />
-        <BodyFigure
+        <BodyView
+          side="back"
           sex={sex}
-          view="back"
-          statuses={statuses}
-          selected={selected}
-          onSelect={setSelected}
+          data={bodyData}
+          onSelect={handleSelect}
         />
       </div>
 
@@ -163,6 +132,6 @@ export function MuscleBodyDiagram({ sex, statuses, className }: MuscleBodyDiagra
   )
 }
 
-export function sexForUser(userId: UserId): BodySex {
+export function sexForUser(userId: UserId): 'male' | 'female' {
   return userId === 'partner' ? 'female' : 'male'
 }
