@@ -5,6 +5,7 @@ import { DEFAULT_RECOVERY_HOURS } from '../utils/recovery'
 import type {
   BodyWeightLog,
   ExerciseSessionHistory,
+  ProgressPhoto,
   RecoveryGroupId,
   RecoveryState,
   SetLog,
@@ -284,5 +285,28 @@ export const workoutRepository = {
 
   async getSessionCount(): Promise<number> {
     return db.sessions.count()
+  },
+
+  async getAllProgressPhotos(): Promise<ProgressPhoto[]> {
+    const photos = await db.progressPhotos.orderBy('capturedAt').reverse().toArray()
+    return photos.map((photo) => ({
+      ...photo,
+      capturedAt: new Date(photo.capturedAt),
+      addedAt: new Date(photo.addedAt),
+    }))
+  },
+
+  async addProgressPhoto(
+    data: Omit<ProgressPhoto, 'id' | 'addedAt'>,
+  ): Promise<number> {
+    const id = await db.progressPhotos.add({
+      ...data,
+      addedAt: new Date(),
+    })
+    return id as number
+  },
+
+  async deleteProgressPhoto(id: number): Promise<void> {
+    await db.progressPhotos.delete(id)
   },
 }

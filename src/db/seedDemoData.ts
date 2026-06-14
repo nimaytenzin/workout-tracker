@@ -14,7 +14,7 @@ const BASE_WEIGHTS: Record<string, { me: number; partner: number }> = {
   'push-incline-db-press': { me: 28, partner: 15 },
   'push-hi-lo-cable': { me: 25, partner: 12.5 },
   'push-lateral-raise': { me: 12.5, partner: 7.5 },
-  'push-oh-triceps': { me: 20, partner: 10 },
+  'push-cable-tricep-extension': { me: 30, partner: 17.5 },
   'push-triceps-pushdown': { me: 35, partner: 20 },
   'pull-lat-pulldown': { me: 70, partner: 40 },
   'pull-cable-row': { me: 32.5, partner: 20 },
@@ -22,7 +22,7 @@ const BASE_WEIGHTS: Record<string, { me: number; partner: number }> = {
   'pull-rear-delt-fly': { me: 10, partner: 5 },
   'pull-bayesian-curl': { me: 14, partner: 8 },
   'pull-preacher-curl': { me: 20, partner: 12 },
-  'pull-reverse-ez-curl': { me: 25, partner: 15 },
+  'pull-reverse-grip-curl': { me: 25, partner: 15 },
   'legs-extensions': { me: 50, partner: 30 },
   'legs-hack-squat': { me: 100, partner: 60 },
   'legs-hip-thrust': { me: 100, partner: 60 },
@@ -45,6 +45,7 @@ const BASE_WEIGHTS: Record<string, { me: number; partner: number }> = {
   'lower-seated-calf': { me: 50, partner: 30 },
   'lower-hanging-leg-raise': { me: 0, partner: 0 },
   'lower-cable-crunch': { me: 25, partner: 15 },
+  'lower-woodchopper': { me: 20, partner: 12.5 },
 }
 
 const BODY_WEIGHT_START = { me: 82.5, partner: 58.0 }

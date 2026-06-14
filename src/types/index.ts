@@ -90,6 +90,14 @@ export interface BodyWeightLog {
   loggedAt: Date
 }
 
+export interface ProgressPhoto {
+  id?: number
+  blob: Blob
+  mimeType: string
+  capturedAt: Date
+  addedAt: Date
+}
+
 export interface MuscleRecoveryStatus {
   group: RecoveryGroupId
   label: string

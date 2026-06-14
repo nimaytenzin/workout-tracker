@@ -14,7 +14,7 @@ Sequence: Heavy Compound → Stretch-Emphasized → Isolation
 *   Exercise 3: Standing Cable Lateral Raise [Targets: Lateral Deltoid]
 *   Exercise 4: Seated Dumbbell Shoulder Press [Targets: Anterior Deltoid]
 *   Exercise 5: High to Low Cable Flye [Targets: Lower Pec Fibers]
-*   Exercise 6: Overhead Dumbbell Triceps Extension [Targets: Triceps Long Head]
+*   Exercise 6: Cable Tricep Extension [Targets: Triceps Long Head]
 *   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Lateral & Medial Heads]
 
 #### DAY 2: PULL DAY (Posterior & Flexion Focus)
@@ -26,7 +26,7 @@ Sequence: Width → Thickness → Unilateral → Rear Delts → Biceps Length �
 *   Exercise 4: Rear Delt Cable Flyes [Targets: Posterior Deltoid]
 *   Exercise 5: Bayesian Curl [Targets: Biceps Long Head]
 *   Exercise 6: Preacher Curl [Targets: Biceps Short Head]
-*   Exercise 7 (Week A only): Reverse Grip EZ Bar Curl [Targets: Brachioradialis & Brachialis — optional finisher, 2 sets]
+*   Exercise 7: Reverse Grip Curl [Targets: Brachioradialis & Brachialis]
 
 #### DAY 3: LEGS & ABS (High-Efficiency Lower Body)
 Sequence: Pre-Exhaust Quads → Compound → Hinge/Glute → Hamstring Isolation → Calves → Abs
@@ -65,6 +65,7 @@ Sequence: Heavy Squat → Accessory Press → Heavy Hinge → Isolations → Cal
 *   Exercise 5: Seated Calf Raise [Targets: Soleus]
 *   Exercise 6: Hanging Leg Raises [Targets: Lower Rectus Abdominis & Transversus Abdominis]
 *   Exercise 7: Cable Crunches [Targets: Upper Rectus Abdominis]
+*   Exercise 8: Cable Woodchopper [Targets: Obliques & Transversus Abdominis]
 
 ### 2. DATA INPUTS & FUNCTIONAL REQUIREMENTS
 

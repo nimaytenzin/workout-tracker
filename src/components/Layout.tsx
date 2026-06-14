@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { BarChart3, CalendarDays, Dumbbell, Heart, Scale } from 'lucide-react'
+import { BarChart3, CalendarDays, Dumbbell, Heart, Images, Scale } from 'lucide-react'
 import { USERS } from '@/data/users'
 import { useIsStandalone } from '@/hooks/useIsStandalone'
 import { cn } from '@/lib/utils'
@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 const NAV = [
   { to: '/', label: 'Workouts', icon: Dumbbell },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
+  { to: '/gallery', label: 'Gallery', icon: Images },
   { to: '/weight', label: 'BMI', icon: Scale },
   { to: '/analytics', label: 'Stats', icon: BarChart3 },
 ]
@@ -34,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Couple Tracker
               </h1>
               <p className="truncate text-xs text-muted-foreground">
-                {USERS.map((u) => u.name).join(' & ')} · workouts · BMI
+                {USERS.map((u) => u.name).join(' & ')} · workouts · gallery · BMI
               </p>
             </div>
           </div>
@@ -62,7 +63,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 key={to}
                 to={to}
                 className={cn(
-                  'flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 py-1 text-[11px] font-medium transition-colors touch-manipulation select-none active:opacity-70',
+                  'flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 py-1 text-[10px] font-medium transition-colors touch-manipulation select-none active:opacity-70',
                   active
                     ? 'text-primary'
                     : 'text-muted-foreground active:text-foreground',
@@ -70,7 +71,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               >
                 <span
                   className={cn(
-                    'flex size-11 items-center justify-center rounded-xl transition-colors',
+                    'flex size-10 items-center justify-center rounded-xl transition-colors',
                     active && 'bg-primary/15',
                   )}
                 >

@@ -1,6 +1,7 @@
 import Dexie, { type EntityTable } from 'dexie'
 import type {
   BodyWeightLog,
+  ProgressPhoto,
   RecoveryState,
   SetLog,
   UserBodyProfile,
@@ -13,6 +14,7 @@ class WorkoutDatabase extends Dexie {
   recoveryStates!: EntityTable<RecoveryState, 'id'>
   bodyWeights!: EntityTable<BodyWeightLog, 'id'>
   userProfiles!: EntityTable<UserBodyProfile, 'id'>
+  progressPhotos!: EntityTable<ProgressPhoto, 'id'>
 
   constructor() {
     super('WorkoutTrackerDB')
@@ -51,6 +53,15 @@ class WorkoutDatabase extends Dexie {
       recoveryStates: '++id, recoveryGroup, userId, fatiguedAt, sessionId',
       bodyWeights: '++id, userId, date, [userId+date]',
       userProfiles: '++id, userId',
+    })
+
+    this.version(4).stores({
+      sessions: '++id, dayId, startedAt, completedAt',
+      setLogs: '++id, sessionId, exerciseId, userId, loggedAt',
+      recoveryStates: '++id, recoveryGroup, userId, fatiguedAt, sessionId',
+      bodyWeights: '++id, userId, date, [userId+date]',
+      userProfiles: '++id, userId',
+      progressPhotos: '++id, capturedAt, addedAt',
     })
   }
 }

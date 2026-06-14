@@ -37,7 +37,7 @@ export function WorkoutPage() {
   const totalExercises = exercises.length
   const isFirst = exerciseIndex === 0
   const isLast = exerciseIndex === totalExercises - 1
-  const showWeekLabel = day?.id === 'legs-abs' || day?.id === 'pull'
+  const showWeekLabel = day?.id === 'legs-abs'
 
   const loadSets = useCallback(async (sid: number) => {
     const allSets = await workoutRepository.getSessionSets(sid)

@@ -17,6 +17,8 @@ export default defineConfig({
         'apple-touch-icon.png',
         'pwa-192.png',
         'pwa-512.png',
+        'progress/gym-progress-1.jpg',
+        'progress/gym-progress-2.jpg',
       ],
       manifest: {
         name: 'Couple Workout Tracker',
