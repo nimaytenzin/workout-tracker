@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Minus, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
@@ -64,14 +64,14 @@ export function NumberStepper({
   hideHint = false,
   className,
 }: NumberStepperProps) {
-  const [draft, setDraft] = useState(() => formatDisplay(value))
   const focusedRef = useRef(false)
 
   useEffect(() => {
-    if (!focusedRef.current) {
-      setDraft(formatDisplay(value))
+    if (!focusedRef.current && id) {
+      const el = document.getElementById(id) as HTMLInputElement | null
+      if (el) el.value = formatDisplay(value)
     }
-  }, [value])
+  }, [value, id])
 
   function clamp(valueToClamp: number): number {
     let next = Math.max(min, valueToClamp)
@@ -101,28 +101,31 @@ export function NumberStepper({
     const next = roundStep(Math.max(min, value + delta), step)
     const clamped = max !== undefined ? Math.min(max, next) : next
     onChange(clamped)
-    if (!focusedRef.current) setDraft(formatDisplay(clamped))
   }
 
   function handleInput(raw: string) {
     const nextDraft = sanitizeDraft(raw, inputMode)
-    setDraft(nextDraft)
+    if (id) {
+      const el = document.getElementById(id) as HTMLInputElement | null
+      if (el) el.value = nextDraft
+    }
     commitDraft(nextDraft, false)
   }
 
-  function handleBlur() {
+  function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
     focusedRef.current = false
 
-    const parsed = parseDraft(draft)
+    const raw = e.currentTarget.value
+    const parsed = parseDraft(raw)
     if (parsed === null) {
       onChange(0)
-      setDraft('')
+      e.currentTarget.value = ''
       return
     }
 
     const final = clamp(parsed)
     onChange(final)
-    setDraft(formatDisplay(final))
+    e.currentTarget.value = formatDisplay(final)
   }
 
   const suffixLabel = suffix ?? label
@@ -156,9 +159,10 @@ export function NumberStepper({
           type="text"
           inputMode={inputMode}
           autoComplete="off"
-          value={draft}
+          defaultValue={formatDisplay(value)}
           placeholder={placeholder}
           onChange={(e) => handleInput(e.target.value)}
+          onInput={(e) => handleInput(e.currentTarget.value)}
           onFocus={() => {
             focusedRef.current = true
           }}

@@ -271,6 +271,7 @@ export function WorkoutPage() {
                 type="button"
                 variant="success"
                 className="h-11 shrink-0 rounded-xl px-4 font-semibold"
+                data-testid="finish-workout"
                 onClick={handleComplete}
                 disabled={completing || totalSets === 0}
               >

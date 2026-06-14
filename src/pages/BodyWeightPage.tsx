@@ -117,7 +117,7 @@ export function BodyWeightPage() {
   const canSave = weights.me > 0 || weights.partner > 0
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-testid="bmi-tracker">
       <div>
         <h2 className="text-xl font-bold tracking-tight">BMI Tracker</h2>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -154,6 +154,7 @@ export function BodyWeightPage() {
                         <span
                           className="text-lg font-bold tabular-nums"
                           style={{ color: user.color }}
+                          data-testid={`bmi-value-${user.id}`}
                         >
                           {bmi}
                         </span>
@@ -204,6 +205,7 @@ export function BodyWeightPage() {
       <Button
         className="w-full"
         size="lg"
+        data-testid="save-weight"
         onClick={handleSave}
         disabled={saving || !canSave}
       >

@@ -188,7 +188,11 @@ export const workoutRepository = {
 
   async getAllRecoveryStates(userId?: UserId) {
     const states = await db.recoveryStates.orderBy('fatiguedAt').reverse().toArray()
-    return userId ? states.filter((s) => s.userId === userId) : states
+    const normalized = states.map((state) => ({
+      ...state,
+      fatiguedAt: new Date(state.fatiguedAt),
+    }))
+    return userId ? normalized.filter((s) => s.userId === userId) : normalized
   },
 
   async getRecentSessions(limit = 10): Promise<WorkoutSession[]> {

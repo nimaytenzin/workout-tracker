@@ -6,12 +6,13 @@ import { fatigueToRedThreshold } from './muscleFatigue'
 const DEFAULT_RECOVERY_HOURS = 48
 
 export function getRecoveryProgress(
-  fatiguedAt: Date,
+  fatiguedAt: Date | string,
   recoveryHours: number,
   now = new Date(),
   fatigueScore = 0,
 ): { hoursRemaining: number; progress: number; status: MuscleRecoveryStatus['status'] } {
-  const elapsedMs = now.getTime() - fatiguedAt.getTime()
+  const fatiguedDate = fatiguedAt instanceof Date ? fatiguedAt : new Date(fatiguedAt)
+  const elapsedMs = now.getTime() - fatiguedDate.getTime()
   const totalMs = recoveryHours * 60 * 60 * 1000
   const progress = Math.min(1, elapsedMs / totalMs)
   const hoursRemaining = Math.max(0, (totalMs - elapsedMs) / (60 * 60 * 1000))
@@ -33,7 +34,9 @@ export function computeRecoveryStatuses(
 
   for (const state of states) {
     const existing = latestByGroup.get(state.recoveryGroup)
-    if (!existing || state.fatiguedAt > existing.fatiguedAt) {
+    const stateAt = new Date(state.fatiguedAt).getTime()
+    const existingAt = existing ? new Date(existing.fatiguedAt).getTime() : 0
+    if (!existing || stateAt > existingAt) {
       latestByGroup.set(state.recoveryGroup, state)
     }
   }

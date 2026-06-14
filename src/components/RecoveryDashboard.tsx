@@ -1,5 +1,6 @@
 import type { MuscleRecoveryStatus, UserId } from '@/types'
 import { MuscleBodyDiagram, sexForUser } from '@/components/MuscleBodyDiagram'
+import { RecoveryStatusList } from '@/components/RecoveryStatusList'
 
 interface RecoveryDashboardProps {
   statuses: MuscleRecoveryStatus[]
@@ -11,7 +12,7 @@ export function RecoveryDashboard({ statuses, userId }: RecoveryDashboardProps) 
   const sexLabel = sex === 'male' ? 'Male' : 'Female'
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" data-testid="recovery-dashboard">
       <div>
         <h3 className="text-base font-semibold">Muscle Recovery</h3>
         <p className="text-sm text-muted-foreground">
@@ -20,6 +21,8 @@ export function RecoveryDashboard({ statuses, userId }: RecoveryDashboardProps) 
       </div>
 
       <MuscleBodyDiagram sex={sex} statuses={statuses} />
+
+      <RecoveryStatusList statuses={statuses} />
 
       <p className="text-center text-[10px] text-muted-foreground">
         Tap highlighted areas to see recovery time

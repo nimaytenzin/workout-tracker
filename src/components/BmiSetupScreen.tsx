@@ -51,7 +51,7 @@ export function BmiSetupScreen({ onComplete }: BmiSetupScreenProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-testid="bmi-setup">
       <div className="text-center">
         <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-2xl bg-primary/15 text-primary">
           <Scale className="size-7" />
@@ -100,15 +100,15 @@ export function BmiSetupScreen({ onComplete }: BmiSetupScreenProps) {
                       <Scale className="size-3.5" />
                       Current weight
                     </label>
-                    <NumberStepper
-                      id={`setup-weight-${user.id}`}
-                      value={weights[user.id]}
-                      onChange={(v) => setWeights((prev) => ({ ...prev, [user.id]: v }))}
-                      step={0.1}
-                      min={0}
-                      suffix="kg"
-                      inputMode="decimal"
-                    />
+        <NumberStepper
+          id={`setup-weight-${user.id}`}
+          value={weights[user.id]}
+          onChange={(v) => setWeights((prev) => ({ ...prev, [user.id]: v }))}
+          step={0.5}
+          min={0}
+          suffix="kg"
+          inputMode="decimal"
+        />
                   </div>
                   {bmi > 0 && (
                     <div className="flex items-center justify-between rounded-xl bg-secondary/50 px-3 py-2">
