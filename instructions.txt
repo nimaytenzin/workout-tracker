@@ -34,12 +34,18 @@ Implement the following 5-Day Workout Architecture into the tracker view:
 *   Exercise 7: Cable Woodchopper [Targets: Obliques & Transversus Abdominis]
 
 #### DAY 4: UPPER DAY (Focus: Antagonist Compound Duels)
-*   Exercise 1: Barbell Row [Targets: Mid-Back & Lats]
-*   Exercise 2: Flat Dumbbell Bench Press [Targets: Sternocostal Chest]
-*   Exercise 3: Lat Pulldown [Targets: Lower Lats]
-*   Exercise 4: Standing Overhead Barbell Press [Targets: Anterior Deltoid]
-*   Exercise 5: Dumbbell Lateral Raise [Targets: Lateral Deltoid]
-*   Exercise 6: Bicep/Tricep Cable Superset [Targets: Arms Overload]
+**Duel 1 (Horizontal Plane)**
+*   Exercise 1: Flat Dumbbell Bench Press [Targets: Sternocostal Chest]
+*   Exercise 2: Chest-Supported DB Row [Targets: Rhomboids & Mid-Trapezius]
+
+**Duel 2 (Vertical Plane)**
+*   Exercise 3: Seated Dumbbell or Smith Machine Shoulder Press [Targets: Anterior Deltoid]
+*   Exercise 4: Close-Grip Neutral Lat Pulldown [Targets: Lower Lats]
+
+**The Finisher (Isolation)**
+*   Exercise 5: Behind-the-Back Cable Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 6: Cable Bicep Curls [Targets: Biceps Brachii]
+*   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Brachii - Lateral & Medial heads]
 
 #### DAY 5: LOWER DAY & ABS (Focus: Heavy Axial Loading)
 *   Exercise 1: Barbell Back Squat [Targets: Total Quads & Glutes]

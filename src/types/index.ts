@@ -34,6 +34,8 @@ export interface Exercise {
   defaultSets: number
   /** When set, exercise only appears on alternating Week A or B */
   alternateWeek?: 'A' | 'B'
+  /** Optional workout block label, e.g. duel grouping */
+  sectionLabel?: string
 }
 
 export interface WorkoutDay {

@@ -142,6 +142,9 @@ export function DayWorkoutOverview({
                   <p className="text-sm font-medium">
                     {index + 1}. {exercise.name}
                   </p>
+                  {exercise.sectionLabel && (
+                    <p className="text-[10px] font-medium text-primary">{exercise.sectionLabel}</p>
+                  )}
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                     {exercise.targets.map((t) => t.label).join(' · ')}
                   </p>

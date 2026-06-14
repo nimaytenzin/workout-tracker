@@ -173,6 +173,11 @@ export function WorkoutPage() {
                 <Dumbbell className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
+                {exercise.sectionLabel && (
+                  <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                    {exercise.sectionLabel}
+                  </p>
+                )}
                 <h2 className="text-xl font-bold leading-snug tracking-tight">
                   {exercise.name}
                 </h2>
