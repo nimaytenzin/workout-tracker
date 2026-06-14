@@ -51,8 +51,8 @@ export function HomePage() {
         {WORKOUT_PROGRAM.map((day) => {
           const exercises = resolveExercisesForDay(day)
           return (
-          <Link key={day.id} to={`/workout/${day.id}`} className="block">
-            <Card className="overflow-hidden transition-colors active:bg-accent/30">
+          <Link key={day.id} to={`/workout/${day.id}`} className="block touch-manipulation select-none">
+            <Card className="overflow-hidden transition-colors active:bg-accent/40 active:scale-[0.99]">
               <CardHeader className="pb-3">
                 <div className="flex items-start gap-3">
                   <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-sm font-bold text-primary">

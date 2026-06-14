@@ -57,12 +57,12 @@ function InputGroupAddon({
 }
 
 const inputGroupButtonVariants = cva(
-  'h-auto min-h-12 w-12 shrink-0 rounded-none border-0 bg-transparent shadow-none touch-manipulation hover:bg-accent/70 active:bg-accent disabled:opacity-40',
+  'h-auto min-h-14 w-14 shrink-0 rounded-none border-0 bg-transparent shadow-none touch-manipulation hover:bg-accent/70 active:bg-accent active:scale-95 disabled:opacity-40',
   {
     variants: {
       size: {
         sm: 'p-0 has-[>svg]:p-0',
-        xs: 'min-h-10 w-10 p-0 has-[>svg]:p-0',
+        xs: 'min-h-11 w-11 p-0 has-[>svg]:p-0',
       },
     },
     defaultVariants: {
@@ -110,7 +110,7 @@ function InputGroupInput({
     <Input
       data-slot="input-group-control"
       className={cn(
-        'h-12 min-h-12 flex-1 rounded-none border-0 bg-transparent px-2 shadow-none focus-visible:border-0 focus-visible:ring-0',
+        'h-14 min-h-14 flex-1 rounded-none border-0 bg-transparent px-2 shadow-none focus-visible:border-0 focus-visible:ring-0',
         className,
       )}
       {...props}

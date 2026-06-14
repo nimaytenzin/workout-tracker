@@ -10,6 +10,7 @@ interface DualExerciseLoggerProps {
   sessionId: number
   setsByUser: Partial<Record<UserId, SetLog[]>>
   onLogSet: (set: Omit<SetLog, 'id' | 'loggedAt'>) => Promise<void>
+  onDeleteSet?: (setId: number) => Promise<void>
 }
 
 export function DualExerciseLogger({
@@ -17,6 +18,7 @@ export function DualExerciseLogger({
   sessionId,
   setsByUser,
   onLogSet,
+  onDeleteSet,
 }: DualExerciseLoggerProps) {
   const [activeUser, setActiveUser] = useState<UserId>('me')
   const [restTrigger, setRestTrigger] = useState(0)
@@ -37,7 +39,7 @@ export function DualExerciseLogger({
               type="button"
               onClick={() => setActiveUser(u.id)}
               className={cn(
-                'flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-all touch-manipulation',
+                'flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition-all touch-manipulation select-none active:scale-[0.98]',
                 active ? 'bg-background shadow-sm' : 'text-muted-foreground',
               )}
             >
@@ -64,12 +66,10 @@ export function DualExerciseLogger({
         className="flex items-center justify-between rounded-xl px-3 py-2 text-xs"
         style={{ backgroundColor: `${user.color}12` }}
       >
-        <span style={{ color: user.color }} className="font-medium">
-          {user.name}&apos;s turn
+        <span style={{ color: user.color }} className="font-semibold">
+          {user.name}
         </span>
-        <span className="text-muted-foreground">
-          {activeSets.length} sets logged
-        </span>
+        <span className="text-muted-foreground">{activeSets.length} sets today</span>
       </div>
 
       <SetLogger
@@ -79,14 +79,17 @@ export function DualExerciseLogger({
         userId={activeUser}
         existingSets={activeSets}
         onLogSet={onLogSet}
+        onDeleteSet={onDeleteSet}
         onSetLogged={() => setRestTrigger((n) => n + 1)}
       />
 
-      <RestTimer
-        key={restTrigger}
-        restSeconds={exercise.restSeconds}
-        autoStart={restTrigger > 0}
-      />
+      {restTrigger > 0 && (
+        <RestTimer
+          key={restTrigger}
+          restSeconds={exercise.restSeconds}
+          autoStart
+        />
+      )}
     </div>
   )
 }

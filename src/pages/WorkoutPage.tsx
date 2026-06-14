@@ -5,12 +5,10 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Dumbbell,
   List,
   Timer,
 } from 'lucide-react'
 import { getWorkoutDay } from '@/data/workoutProgram'
-import { USERS } from '@/data/users'
 import { workoutRepository } from '@/db/repository'
 import { DualExerciseLogger } from '@/components/DualExerciseLogger'
 import { DayWorkoutOverview } from '@/components/DayWorkoutOverview'
@@ -92,7 +90,24 @@ export function WorkoutPage() {
   }
 
   async function handleLogSet(data: Omit<SetLog, 'id' | 'loggedAt'>) {
-    await workoutRepository.logSet(data)
+    const id = await workoutRepository.logSet(data)
+    setSetsByExerciseUser((prev) => {
+      const next = { ...prev }
+      const exerciseSets = { ...(next[data.exerciseId] ?? {}) }
+      const userSets = [...(exerciseSets[data.userId] ?? [])]
+      userSets.push({
+        ...data,
+        id,
+        loggedAt: new Date(),
+      })
+      exerciseSets[data.userId] = userSets.sort((a, b) => a.setNumber - b.setNumber)
+      next[data.exerciseId] = exerciseSets
+      return next
+    })
+  }
+
+  async function handleDeleteSet(setId: number) {
+    await workoutRepository.deleteSet(setId)
     if (sessionId) await loadSets(sessionId)
   }
 
@@ -122,15 +137,15 @@ export function WorkoutPage() {
   const progressPct = totalExercises > 0 ? ((exerciseIndex + 1) / totalExercises) * 100 : 0
 
   return (
-    <div className="relative -mx-4 flex min-h-[calc(100dvh-8rem)] flex-col">
-      {/* Sticky workout header */}
-      <div className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur-md">
-        <div className="space-y-2 px-4 py-3">
+    <div className="relative flex min-h-full flex-col">
+      {/* Sticky workout header — full width, respects notch in standalone */}
+      <div className="safe-top sticky top-0 z-10 border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/85">
+        <div className="space-y-2 px-4 py-2.5">
           <div className="flex items-center justify-between gap-2">
-            <Button asChild variant="ghost" size="sm" className="-ml-2 h-9 px-2">
+            <Button asChild variant="ghost" size="sm" className="-ml-2 h-11 min-w-11 px-2">
               <Link to="/">
-                <ArrowLeft className="size-4" />
-                {day.name}
+                <ArrowLeft className="size-5" />
+                <span className="truncate">{day.name}</span>
               </Link>
             </Button>
             <div className="flex items-center gap-1.5">
@@ -138,13 +153,13 @@ export function WorkoutPage() {
                 type="button"
                 variant="outline"
                 size="sm"
-                className="h-8 gap-1.5 rounded-lg px-2.5 text-xs"
+                className="h-11 gap-1.5 rounded-xl px-3 text-xs"
                 onClick={() => setShowDayOverview(true)}
               >
-                <List className="size-3.5" />
-                Day view
+                <List className="size-4" />
+                Day
               </Button>
-              <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-semibold tabular-nums">
+              <span className="rounded-full bg-muted px-2.5 py-1.5 text-xs font-semibold tabular-nums">
                 {exerciseIndex + 1}/{totalExercises}
               </span>
             </div>
@@ -167,21 +182,18 @@ export function WorkoutPage() {
       {exercise && !completed && (
         <>
           {/* Exercise hero */}
-          <div className="space-y-3 px-4 pb-2 pt-4">
-            <div className="flex items-start gap-3">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                <Dumbbell className="size-5" />
-              </div>
+          <div className="space-y-2 px-4 pb-2 pt-3">
+            <div className="flex items-start gap-2">
               <div className="min-w-0 flex-1">
                 {exercise.sectionLabel && (
-                  <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                  <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
                     {exercise.sectionLabel}
                   </p>
                 )}
-                <h2 className="text-xl font-bold leading-snug tracking-tight">
+                <h2 className="text-lg font-bold leading-snug tracking-tight">
                   {exercise.name}
                 </h2>
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                   {showWeekLabel && (
                     <span className="rounded-full bg-primary/15 px-2 py-0.5 font-medium text-primary">
                       {getAlternatingWeekLabel()}
@@ -189,37 +201,22 @@ export function WorkoutPage() {
                   )}
                   <span className="inline-flex items-center gap-1">
                     <Timer className="size-3" />
-                    {exercise.restSeconds}s rest
+                    {exercise.restSeconds}s
                   </span>
-                  {USERS.map((u) => {
-                    const n = byUser[u.id]?.length ?? 0
-                    return (
-                      <span key={u.id} className="inline-flex items-center gap-1">
-                        <span
-                          className="size-1.5 rounded-full"
-                          style={{ backgroundColor: u.color }}
-                        />
-                        {n} sets
-                      </span>
-                    )
-                  })}
                 </div>
               </div>
             </div>
-
-            <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
-              {exercise.targets.map((t) => t.label).join(' · ')}
-            </p>
           </div>
 
           {/* Logger */}
-          <div className="flex-1 px-4 pb-[calc(6rem+env(safe-area-inset-bottom))]">
+          <div className="flex-1 px-4 pb-4">
             {sessionId && (
               <DualExerciseLogger
                 exercise={exercise}
                 sessionId={sessionId}
                 setsByUser={byUser}
                 onLogSet={handleLogSet}
+                onDeleteSet={handleDeleteSet}
               />
             )}
           </div>
@@ -239,15 +236,15 @@ export function WorkoutPage() {
         </div>
       )}
 
-      {/* Bottom exercise nav */}
+      {/* Bottom exercise nav — sits above tab bar */}
       {!completed && exercise && (
         <div
           className={cn(
-            'fixed inset-x-0 z-30 border-t bg-background/95 backdrop-blur-md',
-            'bottom-[calc(4.25rem+env(safe-area-inset-bottom))]',
+            'fixed inset-x-0 z-30 border-t bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/85 safe-x',
+            'bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))]',
           )}
         >
-          <div className="mx-auto flex max-w-lg items-center gap-2 px-3 py-2.5">
+          <div className="mx-auto flex max-w-lg items-center gap-2 px-3 py-2">
             <Button
               type="button"
               variant="outline"

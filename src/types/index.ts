@@ -59,6 +59,13 @@ export interface SetLog {
   loggedAt: Date
 }
 
+export interface ExerciseSessionHistory {
+  sessionId: number
+  date: string
+  label: string
+  sets: SetLog[]
+}
+
 export interface WorkoutSession {
   id?: number
   dayId: string

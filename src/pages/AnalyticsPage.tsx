@@ -60,7 +60,7 @@ export function AnalyticsPage() {
             type="button"
             variant="ghost"
             className={cn(
-              'h-10 rounded-lg gap-2',
+              'h-11 rounded-lg gap-2',
               activeUser === u.id && 'bg-background shadow-sm',
             )}
             onClick={() => setActiveUser(u.id)}
@@ -75,7 +75,7 @@ export function AnalyticsPage() {
         <Button
           type="button"
           variant="ghost"
-          className={cn('h-10 rounded-lg', tab === 'recovery' && 'bg-background shadow-sm')}
+          className={cn('h-11 rounded-lg', tab === 'recovery' && 'bg-background shadow-sm')}
           onClick={() => setTab('recovery')}
         >
           <Activity className="size-4" />
@@ -84,7 +84,7 @@ export function AnalyticsPage() {
         <Button
           type="button"
           variant="ghost"
-          className={cn('h-10 rounded-lg', tab === 'volume' && 'bg-background shadow-sm')}
+          className={cn('h-11 rounded-lg', tab === 'volume' && 'bg-background shadow-sm')}
           onClick={() => setTab('volume')}
         >
           <BarChart3 className="size-4" />

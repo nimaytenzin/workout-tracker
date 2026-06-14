@@ -20,6 +20,7 @@ interface NumberStepperProps {
   placeholder?: string
   inputMode?: 'decimal' | 'numeric'
   compact?: boolean
+  hideHint?: boolean
   className?: string
 }
 
@@ -60,6 +61,7 @@ export function NumberStepper({
   placeholder = '0',
   inputMode = 'numeric',
   compact = false,
+  hideHint = false,
   className,
 }: NumberStepperProps) {
   const [draft, setDraft] = useState(() => formatDisplay(value))
@@ -136,7 +138,7 @@ export function NumberStepper({
         </label>
       )}
 
-      <InputGroup className={compact ? 'h-10' : 'h-12'}>
+      <InputGroup className={compact ? 'h-11' : 'h-14'}>
         <InputGroupAddon align="inline-start">
           <InputGroupButton
             type="button"
@@ -163,7 +165,7 @@ export function NumberStepper({
           onBlur={handleBlur}
           className={cn(
             'min-w-0 flex-1 px-0.5 text-center font-semibold tabular-nums [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
-            compact ? 'text-base' : 'min-w-[3rem] px-1 text-lg sm:px-2 sm:text-xl',
+            compact ? 'text-base' : 'min-w-[3rem] px-1 text-xl sm:px-2',
           )}
         />
 
@@ -191,7 +193,7 @@ export function NumberStepper({
         </InputGroupAddon>
       </InputGroup>
 
-      {!compact && (
+      {!compact && !hideHint && (
         <p className="text-center text-xs text-muted-foreground">
           Tap ± to adjust by {step}
           {suffixLabel ? ` ${suffixLabel}` : ''}

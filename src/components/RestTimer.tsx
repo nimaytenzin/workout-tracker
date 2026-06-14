@@ -57,7 +57,7 @@ export function RestTimer({ restSeconds, autoStart = false }: RestTimerProps) {
       <button
         type="button"
         onClick={() => setExpanded((e) => !e)}
-        className="flex w-full items-center gap-3 px-3 py-2.5 touch-manipulation"
+        className="flex w-full items-center gap-3 px-3 py-3 touch-manipulation select-none active:bg-muted/30"
       >
         <Timer className="size-4 shrink-0 text-primary" />
         <div className="min-w-0 flex-1 text-left">
@@ -83,7 +83,7 @@ export function RestTimer({ restSeconds, autoStart = false }: RestTimerProps) {
           />
           <div className="flex justify-end gap-2">
             {!running && (
-              <Button type="button" size="sm" className="h-9 rounded-xl" onClick={start}>
+              <Button type="button" size="sm" className="h-11 min-w-11 rounded-xl" onClick={start}>
                 {done ? (
                   <>
                     <RotateCcw className="size-3.5" />
@@ -102,7 +102,7 @@ export function RestTimer({ restSeconds, autoStart = false }: RestTimerProps) {
                 type="button"
                 size="sm"
                 variant="secondary"
-                className="h-9 rounded-xl"
+                className="h-11 min-w-11 rounded-xl"
                 onClick={() => setRunning(false)}
               >
                 <Pause className="size-3.5" />

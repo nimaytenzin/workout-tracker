@@ -71,7 +71,7 @@ export function DayWorkoutOverview({
   const dayColor = WORKOUT_DAY_COLORS[day.id] ?? '#64748b'
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end">
+    <div className="fixed inset-0 z-50 flex flex-col justify-end safe-x">
       <button
         type="button"
         className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
@@ -79,7 +79,7 @@ export function DayWorkoutOverview({
         aria-label="Close overview"
       />
 
-      <div className="relative mx-auto flex max-h-[85dvh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border-t bg-background shadow-2xl">
+      <div className="relative mx-auto flex max-h-[min(85dvh,calc(100dvh-env(safe-area-inset-top,0px)-1rem))] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border-t bg-background shadow-2xl safe-bottom">
         <div
           className="flex items-start justify-between gap-3 border-b px-4 py-4"
           style={{ borderLeftWidth: 4, borderLeftColor: dayColor }}

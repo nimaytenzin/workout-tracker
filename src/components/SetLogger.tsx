@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Check, Copy, ChevronRight, Plus, TrendingUp } from 'lucide-react'
+import { Check, Copy, ChevronRight, Plus, RotateCcw } from 'lucide-react'
 import type { Exercise, SetLog, UserId } from '@/types'
 import { getUser } from '@/data/users'
 import { workoutRepository } from '@/db/repository'
 import { calculateOneRm, formatOneRm } from '@/utils/oneRm'
 import { NumberStepper } from '@/components/NumberStepper'
-import { RpeSelect } from '@/components/RpeSelect'
+import { QuickRpePicker } from '@/components/QuickRpePicker'
+import { ExerciseHistoryPanel } from '@/components/ExerciseHistoryPanel'
 import { Button } from '@/components/ui/button'
 import { formatRpeLabel } from '@/utils/rpe'
+import { cn } from '@/lib/utils'
 
 interface SetLoggerProps {
   exercise: Exercise
@@ -15,7 +17,14 @@ interface SetLoggerProps {
   userId: UserId
   existingSets: SetLog[]
   onLogSet: (set: Omit<SetLog, 'id' | 'loggedAt'>) => Promise<void>
+  onDeleteSet?: (setId: number) => Promise<void>
   onSetLogged?: () => void
+}
+
+function weightDelta(today: number, last?: number): string | null {
+  if (last === undefined || today === last) return null
+  const delta = Math.round((today - last) * 4) / 4
+  return `${delta > 0 ? '+' : ''}${delta} kg`
 }
 
 export function SetLogger({
@@ -24,6 +33,7 @@ export function SetLogger({
   userId,
   existingSets,
   onLogSet,
+  onDeleteSet,
   onSetLogged,
 }: SetLoggerProps) {
   const user = getUser(userId)
@@ -40,29 +50,24 @@ export function SetLogger({
     lastHistorical.find((s) => s.setNumber === activeSetNumber) ?? lastHistorical.at(-1)
   const inputId = `${exercise.id}-${userId}-${activeSetNumber}`
   const estimated1rm = calculateOneRm(weight, reps)
-  const best1rm = existingSets.reduce((max, s) => Math.max(max, s.estimated1rm), 0)
+  const canLog = weight > 0 && reps > 0 && !saving
+  const deltaLabel = weightDelta(weight, lastSetForActive?.weight)
 
   useEffect(() => {
     workoutRepository
       .getPreviousSessionSetsForExercise(exercise.id, userId, sessionId)
       .then(setLastHistorical)
-  }, [exercise.id, userId, sessionId])
+  }, [exercise.id, userId, sessionId, existingSets.length])
 
   useEffect(() => {
-    if (sessionLastSet) {
-      setWeight(sessionLastSet.weight)
-      setReps(sessionLastSet.reps)
-      setRpe(String(sessionLastSet.rpe))
-      return
-    }
-
+    const historicalMatch = lastHistorical.find((s) => s.setNumber === activeSetNumber)
     const ref =
-      lastHistorical.find((s) => s.setNumber === activeSetNumber) ?? lastHistorical.at(-1)
-    if (ref) {
-      setWeight(ref.weight)
-      setReps(ref.reps)
-      setRpe(String(ref.rpe))
-    }
+      historicalMatch ?? sessionLastSet ?? lastHistorical.at(-1)
+    if (!ref) return
+
+    setWeight(ref.weight)
+    setReps(ref.reps)
+    setRpe(String(ref.rpe))
   }, [activeSetNumber, sessionLastSet, lastHistorical])
 
   function applyLastSet(bumpKg = 0) {
@@ -73,9 +78,8 @@ export function SetLogger({
     setRpe(String(ref.rpe))
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (weight <= 0 || reps <= 0) return
+  async function submitSet() {
+    if (!canLog) return
 
     setSaving(true)
     try {
@@ -95,28 +99,70 @@ export function SetLogger({
     }
   }
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    await submitSet()
+  }
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between rounded-2xl border border-border/40 bg-muted/20 px-3 py-2">
-        <span className="text-sm font-semibold">Set {activeSetNumber}</span>
-        {existingSets.length > 0 && (
-          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
-            {existingSets.length} logged
-          </span>
-        )}
-      </div>
+    <div className="space-y-3">
+      <ExerciseHistoryPanel
+        exerciseId={exercise.id}
+        userId={userId}
+        sessionId={sessionId}
+        activeSetNumber={activeSetNumber}
+        userColor={user.color}
+      />
 
       {existingSets.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {existingSets.map((set) => (
-            <span
-              key={set.id ?? set.setNumber}
-              className="inline-flex items-center gap-1 rounded-full border border-border/50 bg-background/60 px-2.5 py-1 text-xs tabular-nums"
-            >
-              <Check className="size-3 text-emerald-500" strokeWidth={3} />
-              {set.setNumber}: {set.weight}×{set.reps}
-            </span>
-          ))}
+        <div className="rounded-2xl border border-border/40 bg-background/40 px-3 py-2">
+          <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+            Today
+          </p>
+          <div className="space-y-1">
+            {existingSets.map((set) => {
+              const lastRef = lastHistorical.find((s) => s.setNumber === set.setNumber)
+              const delta = weightDelta(set.weight, lastRef?.weight)
+              return (
+                <div
+                  key={set.id ?? set.setNumber}
+                  className="flex items-center justify-between gap-2 text-sm"
+                >
+                  <span className="inline-flex items-center gap-1.5 tabular-nums">
+                    <Check className="size-3.5 text-emerald-500" strokeWidth={3} />
+                    <span className="font-medium">Set {set.setNumber}</span>
+                    <span>
+                      {set.weight}×{set.reps} @{set.rpe}
+                    </span>
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {delta && (
+                      <span
+                        className={cn(
+                          'text-[10px] font-semibold tabular-nums',
+                          delta.startsWith('+') ? 'text-emerald-500' : 'text-amber-500',
+                        )}
+                      >
+                        {delta}
+                      </span>
+                    )}
+                    {onDeleteSet && set.id && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="size-7 rounded-lg text-muted-foreground"
+                        onClick={() => onDeleteSet(set.id!)}
+                        aria-label={`Undo set ${set.setNumber}`}
+                      >
+                        <RotateCcw className="size-3" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       )}
 
@@ -124,18 +170,14 @@ export function SetLogger({
         className="overflow-hidden rounded-2xl border-2 shadow-sm"
         style={{ borderColor: user.color, backgroundColor: `${user.color}0c` }}
       >
-        {lastSetForActive && (
-          <div className="flex items-center gap-2 border-b border-border/30 bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
-            <TrendingUp className="size-3 shrink-0 opacity-60" />
-            <span className="shrink-0 font-medium uppercase tracking-wide opacity-70">
-              Last
+        <div className="flex items-center justify-between border-b border-border/30 px-3 py-2">
+          <span className="text-sm font-bold">Set {activeSetNumber}</span>
+          {deltaLabel && (
+            <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-500 tabular-nums">
+              {deltaLabel} vs last
             </span>
-            <span className="tabular-nums">
-              {lastSetForActive.weight} kg × {lastSetForActive.reps}
-            </span>
-            <span className="truncate">· {formatRpeLabel(lastSetForActive.rpe)}</span>
-          </div>
-        )}
+          )}
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-3 p-3">
           {lastSetForActive && (
@@ -144,34 +186,34 @@ export function SetLogger({
                 type="button"
                 variant="secondary"
                 size="sm"
-                className="h-8 flex-1 gap-1.5 rounded-xl text-xs"
+                className="h-11 flex-1 gap-1.5 rounded-xl text-xs font-semibold"
                 onClick={() => applyLastSet(0)}
               >
                 <Copy className="size-3.5" />
-                Match last
+                Use last ({lastSetForActive.weight}×{lastSetForActive.reps})
               </Button>
               <Button
                 type="button"
                 variant="secondary"
                 size="sm"
-                className="h-8 flex-1 gap-1.5 rounded-xl text-xs"
+                className="h-11 shrink-0 gap-1 rounded-xl px-3 text-xs font-semibold"
                 onClick={() => applyLastSet(2.5)}
               >
                 <Plus className="size-3.5" />
-                +2.5 kg
+                +2.5
               </Button>
             </div>
           )}
 
           <NumberStepper
             id={`weight-${inputId}`}
-            label="Weight"
+            label="Weight (kg)"
             value={weight}
             onChange={setWeight}
             step={2.5}
             min={0}
-            suffix="kg"
             inputMode="decimal"
+            hideHint
           />
 
           <NumberStepper
@@ -182,31 +224,24 @@ export function SetLogger({
             step={1}
             min={0}
             inputMode="numeric"
+            hideHint
           />
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              RPE
+            <label className="block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+              RPE · {formatRpeLabel(parseInt(rpe, 10))}
             </label>
-            <RpeSelect value={rpe} onValueChange={setRpe} />
+            <QuickRpePicker value={rpe} onValueChange={setRpe} />
           </div>
 
-          <div className="flex items-center justify-between rounded-xl bg-muted/30 px-3 py-2 text-xs">
-            <span className="text-muted-foreground">
-              Est. 1RM{' '}
-              <span className="font-semibold text-foreground">
-                {formatOneRm(estimated1rm)}
-              </span>
-            </span>
-            {best1rm > 0 && (
-              <span className="text-muted-foreground">Best {formatOneRm(best1rm)}</span>
-            )}
-          </div>
+          <p className="text-center text-[10px] text-muted-foreground">
+            Est. 1RM <span className="font-semibold text-foreground">{formatOneRm(estimated1rm)}</span>
+          </p>
 
           <Button
             type="submit"
-            className="h-12 w-full gap-2 rounded-2xl text-base font-semibold"
-            disabled={saving || weight <= 0 || reps <= 0}
+            className="h-[3.25rem] w-full gap-2 rounded-2xl text-base font-bold shadow-md active:scale-[0.98]"
+            disabled={!canLog}
             style={{ backgroundColor: user.color }}
           >
             {saving ? (
@@ -214,7 +249,7 @@ export function SetLogger({
             ) : (
               <>
                 {activeSetNumber === 1 ? 'Log set' : 'Next set'}
-                <ChevronRight className="size-4" />
+                <ChevronRight className="size-5" />
               </>
             )}
           </Button>

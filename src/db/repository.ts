@@ -4,12 +4,15 @@ import { todayDateString } from '../data/users'
 import { DEFAULT_RECOVERY_HOURS } from '../utils/recovery'
 import type {
   BodyWeightLog,
+  ExerciseSessionHistory,
   RecoveryGroupId,
   RecoveryState,
   SetLog,
   UserId,
   WorkoutSession,
 } from '../types'
+import { formatShortDate } from '../data/users'
+import { localDateString } from '../utils/calendar'
 
 /** Data access layer — swap implementation for Supabase later */
 export const workoutRepository = {
@@ -133,6 +136,51 @@ export const workoutRepository = {
     return sets
       .filter((s) => s.sessionId === latestSessionId)
       .sort((a, b) => a.setNumber - b.setNumber)
+  },
+
+  async getExerciseSessionHistory(
+    exerciseId: string,
+    userId: UserId,
+    excludeSessionId?: number,
+    limit = 4,
+  ): Promise<ExerciseSessionHistory[]> {
+    let sets = await db.setLogs
+      .where('exerciseId')
+      .equals(exerciseId)
+      .filter((s) => s.userId === userId)
+      .toArray()
+
+    if (excludeSessionId) {
+      sets = sets.filter((s) => s.sessionId !== excludeSessionId)
+    }
+    if (sets.length === 0) return []
+
+    const bySession = new Map<number, SetLog[]>()
+    for (const set of sets) {
+      const list = bySession.get(set.sessionId) ?? []
+      list.push(set)
+      bySession.set(set.sessionId, list)
+    }
+
+    const sessions = await db.sessions.toArray()
+    const sessionMap = new Map(sessions.map((s) => [s.id!, s]))
+
+    return [...bySession.entries()]
+      .map(([sessionId, sessionSets]) => {
+        const session = sessionMap.get(sessionId)
+        const when = session?.completedAt ?? session?.startedAt ?? sessionSets[0]?.loggedAt
+        const date = localDateString(new Date(when))
+        return {
+          sessionId,
+          date,
+          label: formatShortDate(date),
+          sets: sessionSets.sort((a, b) => a.setNumber - b.setNumber),
+          time: new Date(when).getTime(),
+        }
+      })
+      .sort((a, b) => b.time - a.time)
+      .slice(0, limit)
+      .map(({ time: _time, ...entry }) => entry)
   },
 
   async getAllSetLogs(userId?: UserId): Promise<SetLog[]> {
