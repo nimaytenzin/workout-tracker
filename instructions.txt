@@ -49,11 +49,12 @@ Implement the following 5-Day Workout Architecture into the tracker view:
 
 #### DAY 5: LOWER DAY & ABS (Focus: Heavy Axial Loading)
 *   Exercise 1: Barbell Back Squat [Targets: Total Quads & Glutes]
-*   Exercise 2: Romanian Deadlift [Targets: Total Hamstrings]
-*   Exercise 3: Leg Press (Full Depth) [Targets: Quads Overload]
+*   Exercise 2: Leg Press (Full Depth) [Targets: Quads Overload]
+*   Exercise 3: Romanian Deadlift [Targets: Total Hamstrings]
 *   Exercise 4: Seated Leg Curl [Targets: Hamstring Knee-Flexion]
 *   Exercise 5: Seated Calf Raise [Targets: Soleus]
 *   Exercise 6: Hanging Leg Raises [Targets: Rectus Abdominis - Lower Fibers & Transversus Abdominis]
+*   Exercise 7: Cable Crunches [Targets: Rectus Abdominis - Upper Fibers]
 
 ### 2. DATA INPUTS & FUNCTIONAL REQUIREMENTS
 

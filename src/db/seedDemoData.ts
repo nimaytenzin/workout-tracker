@@ -44,6 +44,7 @@ const BASE_WEIGHTS: Record<string, { me: number; partner: number }> = {
   'lower-seated-curl': { me: 45, partner: 27.5 },
   'lower-seated-calf': { me: 50, partner: 30 },
   'lower-hanging-leg-raise': { me: 0, partner: 0 },
+  'lower-cable-crunch': { me: 25, partner: 15 },
 }
 
 const BODY_WEIGHT_START = { me: 82.5, partner: 58.0 }
