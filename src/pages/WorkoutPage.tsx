@@ -6,12 +6,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Dumbbell,
+  List,
   Timer,
 } from 'lucide-react'
 import { getWorkoutDay } from '@/data/workoutProgram'
 import { USERS } from '@/data/users'
 import { workoutRepository } from '@/db/repository'
 import { DualExerciseLogger } from '@/components/DualExerciseLogger'
+import { DayWorkoutOverview } from '@/components/DayWorkoutOverview'
 import type { SetLog, UserId } from '@/types'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
@@ -29,6 +31,7 @@ export function WorkoutPage() {
   const [exerciseIndex, setExerciseIndex] = useState(0)
   const [completing, setCompleting] = useState(false)
   const [completed, setCompleted] = useState(false)
+  const [showDayOverview, setShowDayOverview] = useState(false)
 
   const exercise = day?.exercises[exerciseIndex]
   const totalExercises = day?.exercises.length ?? 0
@@ -121,9 +124,21 @@ export function WorkoutPage() {
                 {day.name}
               </Link>
             </Button>
-            <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-semibold tabular-nums">
-              {exerciseIndex + 1}/{totalExercises}
-            </span>
+            <div className="flex items-center gap-1.5">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-8 gap-1.5 rounded-lg px-2.5 text-xs"
+                onClick={() => setShowDayOverview(true)}
+              >
+                <List className="size-3.5" />
+                Day view
+              </Button>
+              <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-semibold tabular-nums">
+                {exerciseIndex + 1}/{totalExercises}
+              </span>
+            </div>
           </div>
 
           <Progress value={progressPct} className="h-1" />
@@ -264,6 +279,13 @@ export function WorkoutPage() {
           )}
         </div>
       )}
+
+      <DayWorkoutOverview
+        day={day}
+        open={showDayOverview}
+        onClose={() => setShowDayOverview(false)}
+        currentSessionId={sessionId}
+      />
     </div>
   )
 }

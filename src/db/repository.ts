@@ -150,6 +150,13 @@ export const workoutRepository = {
     return db.sessions.orderBy('startedAt').reverse().toArray()
   },
 
+  async getSessionsByDayId(dayId: string): Promise<WorkoutSession[]> {
+    const sessions = await db.sessions.where('dayId').equals(dayId).toArray()
+    return sessions.sort(
+      (a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime(),
+    )
+  },
+
   async logBodyWeight(userId: UserId, weight: number, date = todayDateString()): Promise<void> {
     const existing = await db.bodyWeights
       .where('[userId+date]')
