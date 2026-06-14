@@ -114,7 +114,7 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       },
       {
         id: 'pull-hammer-curl',
-        name: 'Dumbbell Hammer Curl',
+        name: 'Cable Hammer Curl',
         targets: [target('brachialis', 'Brachialis & Brachioradialis', 'biceps')],
         restSeconds: 60,
         defaultSets: 3,

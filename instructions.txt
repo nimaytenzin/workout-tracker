@@ -22,7 +22,7 @@ Implement the following 5-Day Workout Architecture into the tracker view:
 *   Exercise 4: Rear Delt Cable Flyes [Targets: Posterior Deltoid]
 *   Exercise 5: Bayesian Curl [Targets: Biceps Brachii - Long head]
 *   Exercise 6: Preacher Curl [Targets: Biceps Brachii - Short head]
-*   Exercise 7: Dumbbell Hammer Curl [Targets: Brachialis & Brachioradialis]
+*   Exercise 7: Cable Hammer Curl [Targets: Brachialis & Brachioradialis]
 
 #### DAY 3: LEGS & ABS (Focus: Lower Body Isolation)
 *   Exercise 1: Seated Leg Extensions [Targets: Rectus Femoris]
