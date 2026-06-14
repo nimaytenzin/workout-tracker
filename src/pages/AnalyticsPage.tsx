@@ -100,7 +100,7 @@ export function AnalyticsPage() {
       </p>
 
       {tab === 'recovery' ? (
-        <RecoveryDashboard statuses={recovery} />
+        <RecoveryDashboard statuses={recovery} userId={activeUser} />
       ) : (
         <VolumeDashboard entries={volume} weekLabel={weekLabel} />
       )}
