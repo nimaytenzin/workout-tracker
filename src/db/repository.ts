@@ -146,6 +146,10 @@ export const workoutRepository = {
     return db.sessions.orderBy('startedAt').reverse().limit(limit).toArray()
   },
 
+  async getAllSessions(): Promise<WorkoutSession[]> {
+    return db.sessions.orderBy('startedAt').reverse().toArray()
+  },
+
   async logBodyWeight(userId: UserId, weight: number, date = todayDateString()): Promise<void> {
     const existing = await db.bodyWeights
       .where('[userId+date]')

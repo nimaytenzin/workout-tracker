@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
-import { BarChart3, CalendarDays, Heart, Scale } from 'lucide-react'
+import { BarChart3, CalendarDays, Dumbbell, Heart, Scale } from 'lucide-react'
 import { USERS } from '@/data/users'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { to: '/', label: 'Workouts', icon: CalendarDays },
+  { to: '/', label: 'Workouts', icon: Dumbbell },
+  { to: '/calendar', label: 'Calendar', icon: CalendarDays },
   { to: '/weight', label: 'BMI', icon: Scale },
   { to: '/analytics', label: 'Stats', icon: BarChart3 },
 ]
@@ -41,7 +42,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
               to === '/'
                 ? location.pathname === '/' || location.pathname.startsWith('/workout')
                 : location.pathname.startsWith(to)
-
             return (
               <Link
                 key={to}
