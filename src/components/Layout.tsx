@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { BarChart3, CalendarDays, Dumbbell, Heart, Images, Scale } from 'lucide-react'
+import { BarChart3, CalendarDays, Dumbbell, Heart, Scale } from 'lucide-react'
 import { USERS } from '@/data/users'
 import { useIsStandalone } from '@/hooks/useIsStandalone'
 import { cn } from '@/lib/utils'
@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
 const NAV = [
   { to: '/', label: 'Workouts', icon: Dumbbell },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays },
-  { to: '/gallery', label: 'Gallery', icon: Images },
   { to: '/weight', label: 'BMI', icon: Scale },
   { to: '/analytics', label: 'Stats', icon: BarChart3 },
 ]
@@ -35,7 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Couple Tracker
               </h1>
               <p className="truncate text-xs text-muted-foreground">
-                {USERS.map((u) => u.name).join(' & ')} · workouts · gallery · BMI
+                {USERS.map((u) => u.name).join(' & ')} · workouts · BMI
               </p>
             </div>
           </div>
