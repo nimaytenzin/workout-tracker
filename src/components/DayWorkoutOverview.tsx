@@ -146,7 +146,11 @@ export function DayWorkoutOverview({
                     <p className="text-[10px] font-medium text-primary">{exercise.sectionLabel}</p>
                   )}
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    {exercise.targets.map((t) => t.label).join(' · ')}
+                    {exercise.targets
+                      .map((t) =>
+                        t.involvement === 'secondary' ? `${t.label} (secondary)` : t.label,
+                      )
+                      .join(' · ')}
                   </p>
                 </div>
               ))}

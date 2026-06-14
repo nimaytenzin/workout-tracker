@@ -14,16 +14,20 @@ export type RecoveryGroupId =
   | 'shoulders'
   | 'back'
   | 'biceps'
+  | 'forearms'
   | 'quads'
   | 'hamstrings'
   | 'glutes'
   | 'calves'
   | 'abs'
 
+export type MuscleInvolvement = 'primary' | 'secondary'
+
 export interface MuscleTarget {
   id: string
   label: string
   recoveryGroup: RecoveryGroupId
+  involvement?: MuscleInvolvement
 }
 
 export interface Exercise {
@@ -79,6 +83,8 @@ export interface RecoveryState {
   recoveryGroup: RecoveryGroupId
   fatiguedAt: Date
   recoveryHours: number
+  /** Set-volume + RPE score when session ended — drives red vs yellow timing */
+  fatigueScore?: number
   sessionId: number
 }
 
@@ -96,6 +102,8 @@ export interface MuscleRecoveryStatus {
   status: 'recovered' | 'recovering' | 'fatigued'
   hoursRemaining: number
   progress: number
+  recoveryHours?: number
+  fatigueScore?: number
 }
 
 export interface WeeklyVolumeEntry {

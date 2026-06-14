@@ -3,6 +3,7 @@ import Body, { type ExtendedBodyPart, type Slug } from 'react-muscle-highlighter
 import type { MuscleRecoveryStatus, RecoveryGroupId, UserId } from '@/types'
 import { recoveryColor } from '@/utils/recovery'
 import {
+  HIDDEN_BODY_PARTS,
   RECOVERY_TO_SLUGS,
   SLUG_TO_RECOVERY_GROUP,
 } from '@/utils/recoveryBodyMap'
@@ -50,7 +51,7 @@ function BodyView({
           defaultFill="#1e293b"
           defaultStroke="#334155"
           defaultStrokeWidth={0.5}
-          hiddenParts={['hair']}
+          hiddenParts={HIDDEN_BODY_PARTS}
           onBodyPartPress={(part) => {
             const group = part.slug
               ? SLUG_TO_RECOVERY_GROUP[part.slug as Slug]
@@ -109,8 +110,15 @@ export function MuscleBodyDiagram({ sex, statuses, className }: MuscleBodyDiagra
           <p className="mt-1 text-xs text-muted-foreground">
             {selectedMeta.status === 'recovered'
               ? 'Ready to train'
-              : `${selectedMeta.hoursRemaining.toFixed(1)}h until fully recovered`}
+              : selectedMeta.status === 'fatigued'
+                ? `Freshly worked — ${selectedMeta.hoursRemaining.toFixed(1)}h until fully recovered`
+                : `${selectedMeta.hoursRemaining.toFixed(1)}h until fully recovered`}
           </p>
+          {selectedMeta.fatigueScore != null && selectedMeta.fatigueScore > 0 && (
+            <p className="mt-1 text-[10px] text-muted-foreground">
+              Session load {selectedMeta.fatigueScore.toFixed(1)} · {selectedMeta.recoveryHours ?? 48}h recovery window
+            </p>
+          )}
         </div>
       )}
 

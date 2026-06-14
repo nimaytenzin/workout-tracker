@@ -1,9 +1,12 @@
 import { db } from './database'
 import { WORKOUT_PROGRAM } from '../data/workoutProgram'
 import { calculateOneRm } from '../utils/oneRm'
-import { DEFAULT_RECOVERY_HOURS } from '../utils/recovery'
+import {
+  computeGroupFatigueFromSets,
+  fatigueToRecoveryHours,
+} from '../utils/muscleFatigue'
 import { resolveExercisesForDay } from '../utils/workout'
-import type { RecoveryGroupId, UserId } from '../types'
+import type { UserId } from '../types'
 
 const USERS: UserId[] = ['me', 'partner']
 
@@ -228,18 +231,22 @@ export async function seedDemoData(options?: {
           }
         }
 
-        const groups = new Set<RecoveryGroupId>()
-        for (const exercise of resolveExercisesForDay(day, gymDate)) {
-          for (const t of exercise.targets) groups.add(t.recoveryGroup)
-        }
+        const sessionSets = await db.setLogs
+          .where('sessionId')
+          .equals(sessionId)
+          .toArray()
 
         for (const userId of USERS) {
-          for (const recoveryGroup of groups) {
+          const userSets = sessionSets.filter((s) => s.userId === userId)
+          const fatigueByGroup = computeGroupFatigueFromSets(userSets)
+
+          for (const [recoveryGroup, fatigueScore] of fatigueByGroup) {
             await db.recoveryStates.add({
               userId,
               recoveryGroup,
               fatiguedAt: completedAt,
-              recoveryHours: DEFAULT_RECOVERY_HOURS,
+              recoveryHours: fatigueToRecoveryHours(fatigueScore),
+              fatigueScore,
               sessionId,
             })
             totalRecovery++

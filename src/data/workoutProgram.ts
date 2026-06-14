@@ -13,7 +13,8 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         name: 'Barbell Flat Bench Press',
         targets: [
           target('pec-sternocostal', 'Sternocostal Chest', 'chest'),
-          target('lat-triceps', 'Lateral Triceps', 'triceps'),
+          target('lat-triceps', 'Lateral Triceps', 'triceps', 'secondary'),
+          target('ant-delt-bench', 'Anterior Deltoid', 'shoulders', 'secondary'),
         ],
         restSeconds: 180,
         defaultSets: 4,
@@ -21,7 +22,11 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       {
         id: 'push-incline-db-press',
         name: 'Incline Dumbbell Press',
-        targets: [target('pec-clavicular', 'Clavicular Chest', 'chest')],
+        targets: [
+          target('pec-clavicular', 'Clavicular Chest', 'chest'),
+          target('ant-delt-incline', 'Anterior Deltoid', 'shoulders', 'secondary'),
+          target('tri-incline', 'Triceps', 'triceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
@@ -35,7 +40,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       {
         id: 'push-shoulder-press',
         name: 'Seated Dumbbell Shoulder Press',
-        targets: [target('ant-delt', 'Anterior Deltoid', 'shoulders')],
+        targets: [
+          target('ant-delt', 'Anterior Deltoid', 'shoulders'),
+          target('tri-press', 'Triceps', 'triceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
@@ -73,28 +81,41 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       {
         id: 'pull-lat-pulldown',
         name: 'Wide-Grip Lat Pulldown',
-        targets: [target('lats-thoracic', 'Thoracic Lats', 'back')],
+        targets: [
+          target('lats-thoracic', 'Thoracic Lats', 'back'),
+          target('bi-pulldown', 'Biceps', 'biceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 4,
       },
       {
         id: 'pull-chest-supported-db-row',
         name: 'Chest Supported Dumbbell Row',
-        targets: [target('rhomboids', 'Rhomboids & Mid-Traps', 'back')],
+        targets: [
+          target('rhomboids', 'Rhomboids & Mid-Traps', 'back'),
+          target('bi-row', 'Biceps', 'biceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
       {
         id: 'pull-cable-row',
         name: 'Single-Arm Neutral Grip Cable Row',
-        targets: [target('lats-iliac', 'Iliac/Lumbar Lats', 'back')],
+        targets: [
+          target('lats-iliac', 'Iliac/Lumbar Lats', 'back'),
+          target('bi-cablerow', 'Biceps', 'biceps', 'secondary'),
+          target('forearm-row', 'Forearm Flexors', 'forearms', 'secondary'),
+        ],
         restSeconds: 90,
         defaultSets: 3,
       },
       {
         id: 'pull-rear-delt-fly',
         name: 'Rear Delt Cable Flyes',
-        targets: [target('post-delt', 'Posterior Deltoid', 'shoulders')],
+        targets: [
+          target('post-delt', 'Posterior Deltoid', 'shoulders'),
+          target('rhomb-rear', 'Rhomboids', 'back', 'secondary'),
+        ],
         restSeconds: 60,
         defaultSets: 3,
       },
@@ -115,7 +136,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       {
         id: 'pull-reverse-grip-curl',
         name: 'Reverse Grip Curl',
-        targets: [target('brachioradialis', 'Brachioradialis & Brachialis', 'biceps')],
+        targets: [
+          target('brachioradialis', 'Brachioradialis', 'forearms'),
+          target('brachialis', 'Brachialis', 'biceps', 'secondary'),
+        ],
         restSeconds: 60,
         defaultSets: 3,
       },
@@ -138,8 +162,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         id: 'legs-hack-squat',
         name: 'Barbell Squat',
         targets: [
-          target('total-quads-glutes-legs', 'Total Quads & Glutes', 'quads'),
+          target('total-quads-glutes-legs', 'Total Quads', 'quads'),
           target('glute-squat', 'Gluteus Maximus', 'glutes'),
+          target('ham-squat', 'Hamstrings', 'hamstrings', 'secondary'),
+          target('abs-squat', 'Core Stabilizers', 'abs', 'secondary'),
         ],
         restSeconds: 180,
         defaultSets: 3,
@@ -150,6 +176,7 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         targets: [
           target('ham-semi', 'Hamstrings', 'hamstrings'),
           target('glute-rdl', 'Glutes', 'glutes'),
+          target('erectors-rdl', 'Spinal Erectors', 'back', 'secondary'),
         ],
         restSeconds: 120,
         defaultSets: 3,
@@ -158,7 +185,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       {
         id: 'legs-hip-thrust',
         name: 'Barbell Hip Thrust',
-        targets: [target('glute-max', 'Glutes', 'glutes')],
+        targets: [
+          target('glute-max', 'Glutes', 'glutes'),
+          target('ham-hip', 'Hamstrings', 'hamstrings', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
         alternateWeek: 'B',
@@ -203,7 +233,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         id: 'upper-db-bench',
         name: 'Flat Dumbbell Bench Press',
         sectionLabel: 'Duel 1 · Horizontal',
-        targets: [target('stern-chest', 'Sternocostal Chest', 'chest')],
+        targets: [
+          target('stern-chest', 'Sternocostal Chest', 'chest'),
+          target('tri-upper-bench', 'Triceps', 'triceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
@@ -211,7 +244,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         id: 'upper-chest-supported-row',
         name: 'Chest-Supported Dumbbell Row',
         sectionLabel: 'Duel 1 · Horizontal',
-        targets: [target('rhomboids-upper', 'Rhomboids & Mid-Traps', 'back')],
+        targets: [
+          target('rhomboids-upper', 'Rhomboids & Mid-Traps', 'back'),
+          target('bi-upper-row', 'Biceps', 'biceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
@@ -219,7 +255,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         id: 'upper-shoulder-press',
         name: 'Seated Dumbbell or Smith Machine Shoulder Press',
         sectionLabel: 'Duel 2 · Vertical',
-        targets: [target('ant-delt-upper', 'Anterior Deltoid', 'shoulders')],
+        targets: [
+          target('ant-delt-upper', 'Anterior Deltoid', 'shoulders'),
+          target('tri-upper-press', 'Triceps', 'triceps', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
@@ -227,7 +266,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         id: 'upper-close-grip-pulldown',
         name: 'Close-Grip Neutral Lat Pulldown',
         sectionLabel: 'Duel 2 · Vertical',
-        targets: [target('lower-lats', 'Lower Lats', 'back')],
+        targets: [
+          target('lower-lats', 'Lower Lats', 'back'),
+          target('bi-upper-pulldown', 'Biceps', 'biceps', 'secondary'),
+        ],
         restSeconds: 90,
         defaultSets: 3,
       },
@@ -268,21 +310,33 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
       {
         id: 'lower-back-squat',
         name: 'Barbell Back Squat',
-        targets: [target('total-quads-glutes', 'Total Quads & Glutes', 'quads')],
+        targets: [
+          target('total-quads-glutes', 'Total Quads', 'quads'),
+          target('glute-squat-lower', 'Glutes', 'glutes', 'secondary'),
+          target('ham-squat-lower', 'Hamstrings', 'hamstrings', 'secondary'),
+          target('abs-squat-lower', 'Core Stabilizers', 'abs', 'secondary'),
+        ],
         restSeconds: 180,
         defaultSets: 4,
       },
       {
         id: 'lower-leg-press',
         name: 'Leg Press (Full Depth)',
-        targets: [target('quads-overload', 'Quad Overload', 'quads')],
+        targets: [
+          target('quads-overload', 'Quad Overload', 'quads'),
+          target('glute-press', 'Glutes', 'glutes', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
       {
         id: 'lower-rdl',
         name: 'Romanian Deadlift',
-        targets: [target('total-hams', 'Total Hamstrings', 'hamstrings')],
+        targets: [
+          target('total-hams', 'Total Hamstrings', 'hamstrings'),
+          target('glute-rdl-lower', 'Glutes', 'glutes', 'secondary'),
+          target('erectors-lower', 'Spinal Erectors', 'back', 'secondary'),
+        ],
         restSeconds: 120,
         defaultSets: 3,
       },
