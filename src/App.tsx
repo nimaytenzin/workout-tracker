@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
+import { PwaAutoUpdate } from '@/components/PwaAutoUpdate'
 import { HomePage } from '@/pages/HomePage'
 import { WorkoutPage } from '@/pages/WorkoutPage'
 import { CalendarPage } from '@/pages/CalendarPage'
@@ -9,6 +10,7 @@ import { BodyWeightPage } from '@/pages/BodyWeightPage'
 export default function App() {
   return (
     <BrowserRouter>
+      <PwaAutoUpdate />
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
