@@ -1,13 +1,11 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronRight, Database, Dumbbell } from 'lucide-react'
+import { ChevronRight, Dumbbell } from 'lucide-react'
 import { WORKOUT_PROGRAM } from '@/data/workoutProgram'
 import { USERS } from '@/data/users'
 import { workoutRepository } from '@/db/repository'
-import { seedDemoData } from '@/db/seedDemoData'
 import { computeRecoveryStatuses } from '@/utils/recovery'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -20,32 +18,18 @@ export function HomePage() {
   const [recoveryByUser, setRecoveryByUser] = useState<
     Record<string, ReturnType<typeof computeRecoveryStatuses>>
   >({})
-  const [sessionCount, setSessionCount] = useState(0)
-  const [seeding, setSeeding] = useState(false)
 
   const refresh = useCallback(async () => {
-    const [count, ...recoveryLists] = await Promise.all([
-      workoutRepository.getSessionCount(),
-      ...USERS.map((user) => workoutRepository.getAllRecoveryStates(user.id)),
-    ])
+    const recoveryLists = await Promise.all(
+      USERS.map((user) => workoutRepository.getAllRecoveryStates(user.id)),
+    )
 
     const result: typeof recoveryByUser = {}
     USERS.forEach((user, i) => {
       result[user.id] = computeRecoveryStatuses(recoveryLists[i])
     })
     setRecoveryByUser(result)
-    setSessionCount(count)
   }, [])
-
-  async function handleLoadDemo() {
-    setSeeding(true)
-    try {
-      await seedDemoData({ weeks: 3, replace: true })
-      await refresh()
-    } finally {
-      setSeeding(false)
-    }
-  }
 
   useEffect(() => {
     refresh()
@@ -55,24 +39,11 @@ export function HomePage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h2 className="text-xl font-bold tracking-tight">Workout Template</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            PPL + UL split — log sets separately for {USERS.map((u) => u.name).join(' & ')}
-          </p>
-        </div>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          className="shrink-0 gap-1.5"
-          disabled={seeding}
-          onClick={handleLoadDemo}
-        >
-          <Database className="size-3.5" />
-          {seeding ? 'Loading…' : sessionCount > 0 ? 'Reload demo' : 'Load demo'}
-        </Button>
+      <div>
+        <h2 className="text-xl font-bold tracking-tight">Workout Template</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          PPL + UL split — log sets separately for {USERS.map((u) => u.name).join(' & ')}
+        </p>
       </div>
 
       <div className="space-y-3">
