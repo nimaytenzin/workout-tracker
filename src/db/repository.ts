@@ -62,6 +62,28 @@ export const workoutRepository = {
     return id as number
   },
 
+  async deleteSet(setId: number): Promise<void> {
+    const set = await db.setLogs.get(setId)
+    if (!set) return
+
+    await db.setLogs.delete(setId)
+
+    const toRenumber = await db.setLogs
+      .where('sessionId')
+      .equals(set.sessionId)
+      .filter(
+        (s) =>
+          s.exerciseId === set.exerciseId &&
+          s.userId === set.userId &&
+          s.setNumber > set.setNumber,
+      )
+      .toArray()
+
+    for (const s of toRenumber) {
+      if (s.id) await db.setLogs.update(s.id, { setNumber: s.setNumber - 1 })
+    }
+  },
+
   async getSessionSets(sessionId: number): Promise<SetLog[]> {
     return db.setLogs.where('sessionId').equals(sessionId).sortBy('setNumber')
   },

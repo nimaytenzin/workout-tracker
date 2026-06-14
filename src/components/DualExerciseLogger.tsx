@@ -68,7 +68,7 @@ export function DualExerciseLogger({
           {user.name}&apos;s turn
         </span>
         <span className="text-muted-foreground">
-          {activeSets.length} of {exercise.defaultSets} sets logged
+          {activeSets.length} of {Math.max(exercise.defaultSets, activeSets.length)} sets logged
         </span>
       </div>
 
