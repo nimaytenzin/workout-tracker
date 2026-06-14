@@ -24,15 +24,14 @@ Implement the following 5-Day Workout Architecture into the tracker view:
 *   Exercise 6: Preacher Curl [Targets: Biceps Brachii - Short head]
 *   Exercise 7: Cable Hammer Curl [Targets: Brachialis & Brachioradialis]
 
-#### DAY 3: LEGS & ABS (Focus: Lower Body Isolation)
+#### DAY 3: LEGS & ABS (Focus: High-Efficiency Lower Body)
 *   Exercise 1: Seated Leg Extensions [Targets: Rectus Femoris]
-*   Exercise 2: Hack Squat or Barbell Squat [Targets: Vastus Lateralis & Intermedius]
-*   Exercise 3: Leg Press (Low Stance) [Targets: Vastus Medialis - Teardrop]
-*   Exercise 4: Barbell Hip Thrust [Targets: Gluteus Maximus]
-*   Exercise 5: Romanian Deadlift [Targets: Inner Hamstrings - Semitendinosus]
-*   Exercise 6: Lying Leg Curl [Targets: Outer Hamstrings - Biceps Femoris]
-*   Exercise 7: Standing Calf Raises [Targets: Gastrocnemius]
-*   Exercise 8: Weighted Rope Cable Crunches [Targets: Rectus Abdominis - Upper Fibers]
+*   Exercise 2: Barbell Squat [Targets: Vastus Lateralis & Intermedius, Gluteus Maximus]
+*   Exercise 3: Romanian Deadlift (Week A) OR Barbell Hip Thrust (Week B) [Alternates weekly]
+*   Exercise 4: Seated Leg Curl [Targets: Hamstrings - Knee Flexion]
+*   Exercise 5: Standing Calf Raises [Targets: Gastrocnemius]
+*   Exercise 6: Weighted Rope Cable Crunches [Targets: Rectus Abdominis - Upper Fibers]
+*   Exercise 7: Cable Woodchopper [Targets: Obliques & Transversus Abdominis]
 
 #### DAY 4: UPPER DAY (Focus: Antagonist Compound Duels)
 *   Exercise 1: Barbell Row [Targets: Mid-Back & Lats]

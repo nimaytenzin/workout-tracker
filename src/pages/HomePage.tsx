@@ -5,6 +5,7 @@ import { WORKOUT_PROGRAM } from '@/data/workoutProgram'
 import { USERS } from '@/data/users'
 import { workoutRepository } from '@/db/repository'
 import { computeRecoveryStatuses } from '@/utils/recovery'
+import { resolveExercisesForDay } from '@/utils/workout'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -47,7 +48,9 @@ export function HomePage() {
       </div>
 
       <div className="space-y-3">
-        {WORKOUT_PROGRAM.map((day) => (
+        {WORKOUT_PROGRAM.map((day) => {
+          const exercises = resolveExercisesForDay(day)
+          return (
           <Link key={day.id} to={`/workout/${day.id}`} className="block">
             <Card className="overflow-hidden transition-colors active:bg-accent/30">
               <CardHeader className="pb-3">
@@ -60,7 +63,7 @@ export function HomePage() {
                     <CardDescription className="mt-1">{day.focus}</CardDescription>
                     <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Dumbbell className="size-3.5" />
-                      {day.exercises.length} exercises · dual logging
+                      {exercises.length} exercises · dual logging
                     </p>
                   </div>
                   <ChevronRight className="mt-1 size-5 shrink-0 text-muted-foreground" />
@@ -73,7 +76,7 @@ export function HomePage() {
                   const fatigued = recovery.filter(
                     (r) =>
                       r.status !== 'recovered' &&
-                      day.exercises.some((e) =>
+                      exercises.some((e) =>
                         e.targets.some((t) => t.recoveryGroup === r.group),
                       ),
                   )
@@ -102,7 +105,8 @@ export function HomePage() {
               </CardContent>
             </Card>
           </Link>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

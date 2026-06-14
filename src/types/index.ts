@@ -32,6 +32,8 @@ export interface Exercise {
   targets: MuscleTarget[]
   restSeconds: number
   defaultSets: number
+  /** When set, exercise only appears on alternating Week A or B */
+  alternateWeek?: 'A' | 'B'
 }
 
 export interface WorkoutDay {

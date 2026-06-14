@@ -15,6 +15,7 @@ import { workoutRepository } from '@/db/repository'
 import { DualExerciseLogger } from '@/components/DualExerciseLogger'
 import { DayWorkoutOverview } from '@/components/DayWorkoutOverview'
 import type { SetLog, UserId } from '@/types'
+import { getAlternatingWeekLabel, resolveExercisesForDay } from '@/utils/workout'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -33,10 +34,12 @@ export function WorkoutPage() {
   const [completed, setCompleted] = useState(false)
   const [showDayOverview, setShowDayOverview] = useState(false)
 
-  const exercise = day?.exercises[exerciseIndex]
-  const totalExercises = day?.exercises.length ?? 0
+  const exercises = day ? resolveExercisesForDay(day) : []
+  const exercise = exercises[exerciseIndex]
+  const totalExercises = exercises.length
   const isFirst = exerciseIndex === 0
   const isLast = exerciseIndex === totalExercises - 1
+  const showWeekLabel = day?.id === 'legs-abs'
 
   const loadSets = useCallback(async (sid: number) => {
     const allSets = await workoutRepository.getSessionSets(sid)
@@ -67,6 +70,12 @@ export function WorkoutPage() {
 
     init()
   }, [day, loadSets])
+
+  useEffect(() => {
+    if (exerciseIndex >= totalExercises && totalExercises > 0) {
+      setExerciseIndex(totalExercises - 1)
+    }
+  }, [exerciseIndex, totalExercises])
 
   if (!day) {
     return (
@@ -168,6 +177,11 @@ export function WorkoutPage() {
                   {exercise.name}
                 </h2>
                 <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                  {showWeekLabel && (
+                    <span className="rounded-full bg-primary/15 px-2 py-0.5 font-medium text-primary">
+                      {getAlternatingWeekLabel()}
+                    </span>
+                  )}
                   <span className="inline-flex items-center gap-1">
                     <Timer className="size-3" />
                     {exercise.restSeconds}s rest
@@ -246,7 +260,7 @@ export function WorkoutPage() {
                 {isLast ? 'Final exercise' : 'Next up'}
               </p>
               <p className="truncate text-sm font-medium">
-                {isLast ? exercise.name : day.exercises[exerciseIndex + 1]?.name}
+                {isLast ? exercise.name : exercises[exerciseIndex + 1]?.name}
               </p>
             </div>
 

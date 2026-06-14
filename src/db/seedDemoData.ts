@@ -2,6 +2,7 @@ import { db } from './database'
 import { WORKOUT_PROGRAM } from '../data/workoutProgram'
 import { calculateOneRm } from '../utils/oneRm'
 import { DEFAULT_RECOVERY_HOURS } from '../utils/recovery'
+import { resolveExercisesForDay } from '../utils/workout'
 import type { RecoveryGroupId, UserId } from '../types'
 
 const USERS: UserId[] = ['me', 'partner']
@@ -24,12 +25,12 @@ const BASE_WEIGHTS: Record<string, { me: number; partner: number }> = {
   'pull-hammer-curl': { me: 16, partner: 10 },
   'legs-extensions': { me: 50, partner: 30 },
   'legs-hack-squat': { me: 100, partner: 60 },
-  'legs-leg-press-low': { me: 140, partner: 90 },
   'legs-hip-thrust': { me: 100, partner: 60 },
   'legs-rdl': { me: 80, partner: 50 },
-  'legs-lying-curl': { me: 40, partner: 25 },
+  'legs-seated-curl': { me: 40, partner: 25 },
   'legs-calf-raise': { me: 80, partner: 50 },
   'legs-cable-crunch': { me: 25, partner: 15 },
+  'legs-woodchopper': { me: 20, partner: 12.5 },
   'upper-barbell-row': { me: 75, partner: 42.5 },
   'upper-db-bench': { me: 34, partner: 20 },
   'upper-lat-pulldown': { me: 65, partner: 37.5 },
@@ -199,7 +200,7 @@ export async function seedDemoData(options?: {
           })
 
           let setOffsetMinutes = 0
-          for (const exercise of day.exercises) {
+          for (const exercise of resolveExercisesForDay(day, gymDate)) {
             for (let setNum = 1; setNum <= exercise.defaultSets; setNum++) {
               const weight = exerciseWeight(exercise.id, userId, weekIndex, setNum)
               const reps = setReps(setNum, exercise.defaultSets)
@@ -225,7 +226,7 @@ export async function seedDemoData(options?: {
         }
 
         const groups = new Set<RecoveryGroupId>()
-        for (const exercise of day.exercises) {
+        for (const exercise of resolveExercisesForDay(day, gymDate)) {
           for (const t of exercise.targets) groups.add(t.recoveryGroup)
         }
 

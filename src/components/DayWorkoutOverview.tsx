@@ -5,6 +5,7 @@ import { RECOVERY_GROUPS } from '@/data/muscleGroups'
 import { workoutRepository } from '@/db/repository'
 import { buildCalendarSessions, WORKOUT_DAY_COLORS } from '@/utils/calendar'
 import { formatShortDate } from '@/data/users'
+import { getAlternatingWeekLabel, resolveExercisesForDay } from '@/utils/workout'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -27,9 +28,11 @@ export function DayWorkoutOverview({
   >([])
   const [loading, setLoading] = useState(false)
 
+  const activeExercises = useMemo(() => resolveExercisesForDay(day), [day])
+
   const musclesWorked = useMemo(() => {
     const groups = new Set<string>()
-    for (const exercise of day.exercises) {
+    for (const exercise of activeExercises) {
       for (const target of exercise.targets) {
         groups.add(target.recoveryGroup)
       }
@@ -38,7 +41,7 @@ export function DayWorkoutOverview({
       id: group,
       ...RECOVERY_GROUPS[group as keyof typeof RECOVERY_GROUPS],
     }))
-  }, [day])
+  }, [activeExercises])
 
   useEffect(() => {
     if (!open) return
@@ -87,6 +90,9 @@ export function DayWorkoutOverview({
             </p>
             <h2 className="text-lg font-bold">{day.name}</h2>
             <p className="text-sm text-muted-foreground">{day.focus}</p>
+            {day.id === 'legs-abs' && (
+              <p className="mt-1 text-xs text-primary">{getAlternatingWeekLabel()} · hinge alternates weekly</p>
+            )}
           </div>
           <Button
             type="button"
@@ -125,10 +131,10 @@ export function DayWorkoutOverview({
 
           <section className="space-y-2">
             <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Exercises ({day.exercises.length})
+              Exercises ({activeExercises.length})
             </h3>
             <div className="space-y-2">
-              {day.exercises.map((exercise, index) => (
+              {activeExercises.map((exercise, index) => (
                 <div
                   key={exercise.id}
                   className="rounded-xl border border-border/50 bg-muted/20 px-3 py-2.5"

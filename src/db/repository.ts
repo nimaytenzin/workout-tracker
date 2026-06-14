@@ -1,5 +1,5 @@
 import { db } from './database'
-import { WORKOUT_PROGRAM } from '../data/workoutProgram'
+import { WORKOUT_PROGRAM, getExercise } from '../data/workoutProgram'
 import { todayDateString } from '../data/users'
 import { DEFAULT_RECOVERY_HOURS } from '../utils/recovery'
 import type {
@@ -35,10 +35,13 @@ export const workoutRepository = {
 
     const sessionSets = await db.setLogs.where('sessionId').equals(sessionId).toArray()
     const activeUsers = new Set(sessionSets.map((s) => s.userId))
+    const exercisedIds = new Set(sessionSets.map((s) => s.exerciseId))
 
     const groups = new Set<RecoveryGroupId>()
-    for (const exercise of day.exercises) {
-      for (const t of exercise.targets) groups.add(t.recoveryGroup)
+    for (const exerciseId of exercisedIds) {
+      const info = getExercise(exerciseId)
+      if (!info) continue
+      for (const t of info.exercise.targets) groups.add(t.recoveryGroup)
     }
 
     const now = new Date()
