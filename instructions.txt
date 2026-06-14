@@ -6,12 +6,12 @@ The application must strictly map exercises to their specific anatomical muscle 
 
 Implement the following 5-Day Workout Architecture into the tracker view:
 
-#### DAY 1: PUSH DAY (Focus: Anterior & Extension)
+#### DAY 1: PUSH DAY (Focus: Anterior & Extension) — Optimized Flow
 *   Exercise 1: Barbell Flat Bench Press [Targets: Pectoralis Major - Sternocostal head, Lateral Triceps]
-*   Exercise 2: Seated Dumbbell Shoulder Press [Targets: Anterior Deltoid]
-*   Exercise 3: Incline DB Press [Targets: Pectoralis Major - Clavicular head]
-*   Exercise 4: High to Low Cable [Targets: Pectoralis Major - Lower fibers]
-*   Exercise 5: Standing Cable Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 2: Incline DB Press [Targets: Pectoralis Major - Clavicular head]
+*   Exercise 3: Seated Dumbbell Shoulder Press [Targets: Anterior Deltoid]
+*   Exercise 4: Standing Cable Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 5: High to Low Cable [Targets: Pectoralis Major - Lower fibers]
 *   Exercise 6: Overhead Dumbbell Triceps Extension [Targets: Triceps Brachii - Long head]
 *   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Brachii - Lateral & Medial heads]
 

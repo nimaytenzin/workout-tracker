@@ -19,13 +19,6 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         defaultSets: 4,
       },
       {
-        id: 'push-shoulder-press',
-        name: 'Seated Dumbbell Shoulder Press',
-        targets: [target('ant-delt', 'Anterior Deltoid', 'shoulders')],
-        restSeconds: 120,
-        defaultSets: 3,
-      },
-      {
         id: 'push-incline-db-press',
         name: 'Incline DB Press',
         targets: [target('pec-clavicular', 'Pectoralis Major - Clavicular head', 'chest')],
@@ -33,10 +26,10 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         defaultSets: 3,
       },
       {
-        id: 'push-hi-lo-cable',
-        name: 'High to Low Cable',
-        targets: [target('pec-stern-lower', 'Pectoralis Major - Lower fibers', 'chest')],
-        restSeconds: 90,
+        id: 'push-shoulder-press',
+        name: 'Seated Dumbbell Shoulder Press',
+        targets: [target('ant-delt', 'Anterior Deltoid', 'shoulders')],
+        restSeconds: 120,
         defaultSets: 3,
       },
       {
@@ -44,6 +37,13 @@ export const WORKOUT_PROGRAM: WorkoutDay[] = [
         name: 'Standing Cable Lateral Raise',
         targets: [target('lat-delt', 'Lateral Deltoid', 'shoulders')],
         restSeconds: 60,
+        defaultSets: 3,
+      },
+      {
+        id: 'push-hi-lo-cable',
+        name: 'High to Low Cable',
+        targets: [target('pec-stern-lower', 'Pectoralis Major - Lower fibers', 'chest')],
+        restSeconds: 90,
         defaultSets: 3,
       },
       {
