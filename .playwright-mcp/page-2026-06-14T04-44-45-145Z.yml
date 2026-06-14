@@ -1,0 +1,23 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e9]:
+        - heading "Couple Tracker" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Me & GF · workouts · BMI
+  - main [ref=e12]:
+    - paragraph [ref=e14]: Loading…
+  - navigation [ref=e15]:
+    - generic [ref=e16]:
+      - link "Workouts" [ref=e17] [cursor=pointer]:
+        - /url: /
+        - img [ref=e19]
+        - text: Workouts
+      - link "BMI" [ref=e21] [cursor=pointer]:
+        - /url: /weight
+        - img [ref=e23]
+        - text: BMI
+      - link "Stats" [ref=e27] [cursor=pointer]:
+        - /url: /analytics
+        - img [ref=e29]
+        - text: Stats

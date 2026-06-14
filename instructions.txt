@@ -1,0 +1,67 @@
+Act as an expert software engineer and fitness data architect. Generate a highly functional, interactive, and mobile-friendly workout tracking application for a 5-day "PPL + UL" (Push, Pull, Legs, Upper, Lower) training split. 
+
+The application must strictly map exercises to their specific anatomical muscle heads to provide real-time recovery data and tracking.
+
+### 1. APPLICATION STRUCTURAL FRAMEWORK
+
+Implement the following 5-Day Workout Architecture into the tracker view:
+
+#### DAY 1: PUSH DAY (Focus: Anterior & Extension)
+*   Exercise 1: Barbell Flat Bench Press [Targets: Pectoralis Major - Sternocostal head, Lateral Triceps]
+*   Exercise 2: Seated Dumbbell Shoulder Press [Targets: Anterior Deltoid]
+*   Exercise 3: Incline DB Press [Targets: Pectoralis Major - Clavicular head]
+*   Exercise 4: High to Low Cable [Targets: Pectoralis Major - Lower fibers]
+*   Exercise 5: Standing Cable Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 6: Overhead Dumbbell Triceps Extension [Targets: Triceps Brachii - Long head]
+*   Exercise 7: Cable Triceps Pushdowns [Targets: Triceps Brachii - Lateral & Medial heads]
+
+#### DAY 2: PULL DAY (Focus: Posterior & Flexion)
+*   Exercise 1: Wide-Grip Lat Pulldown [Targets: Latissimus Dorsi - Thoracic fibers]
+*   Exercise 2: Single-Arm Neutral Grip Cable Row [Targets: Latissimus Dorsi - Iliac/Lumbar fibers]
+*   Exercise 3: Chest Supported DB Row [Targets: Rhomboids & Mid-Trapezius]
+*   Exercise 4: Rear Delt Cable Flyes [Targets: Posterior Deltoid]
+*   Exercise 5: Bayesian Curl [Targets: Biceps Brachii - Long head]
+*   Exercise 6: Preacher Curl [Targets: Biceps Brachii - Short head]
+*   Exercise 7: Dumbbell Hammer Curl [Targets: Brachialis & Brachioradialis]
+
+#### DAY 3: LEGS & ABS (Focus: Lower Body Isolation)
+*   Exercise 1: Seated Leg Extensions [Targets: Rectus Femoris]
+*   Exercise 2: Hack Squat or Barbell Squat [Targets: Vastus Lateralis & Intermedius]
+*   Exercise 3: Leg Press (Low Stance) [Targets: Vastus Medialis - Teardrop]
+*   Exercise 4: Barbell Hip Thrust [Targets: Gluteus Maximus]
+*   Exercise 5: Romanian Deadlift [Targets: Inner Hamstrings - Semitendinosus]
+*   Exercise 6: Lying Leg Curl [Targets: Outer Hamstrings - Biceps Femoris]
+*   Exercise 7: Standing Calf Raises [Targets: Gastrocnemius]
+*   Exercise 8: Weighted Rope Cable Crunches [Targets: Rectus Abdominis - Upper Fibers]
+
+#### DAY 4: UPPER DAY (Focus: Antagonist Compound Duels)
+*   Exercise 1: Barbell Row [Targets: Mid-Back & Lats]
+*   Exercise 2: Flat Dumbbell Bench Press [Targets: Sternocostal Chest]
+*   Exercise 3: Lat Pulldown [Targets: Lower Lats]
+*   Exercise 4: Standing Overhead Barbell Press [Targets: Anterior Deltoid]
+*   Exercise 5: Dumbbell Lateral Raise [Targets: Lateral Deltoid]
+*   Exercise 6: Bicep/Tricep Cable Superset [Targets: Arms Overload]
+
+#### DAY 5: LOWER DAY & ABS (Focus: Heavy Axial Loading)
+*   Exercise 1: Barbell Back Squat [Targets: Total Quads & Glutes]
+*   Exercise 2: Romanian Deadlift [Targets: Total Hamstrings]
+*   Exercise 3: Leg Press (Full Depth) [Targets: Quads Overload]
+*   Exercise 4: Seated Leg Curl [Targets: Hamstring Knee-Flexion]
+*   Exercise 5: Seated Calf Raise [Targets: Soleus]
+*   Exercise 6: Hanging Leg Raises [Targets: Rectus Abdominis - Lower Fibers & Transversus Abdominis]
+
+### 2. DATA INPUTS & FUNCTIONAL REQUIREMENTS
+
+For EACH exercise listed above, provide the following interactive tracking states:
+1.  **Set Logger:** Rows for Set Number, Weight Input (lbs/kg), and Reps Completed Input.
+2.  **RPE Selector:** A dropdown menu from 1 to 10 to measure the Rate of Perceived Exertion (Intensity).
+3.  **Rest Timer:** An in-app countdown timer initialized to the optimal rest time specified for each movement.
+4.  **1RM Calculator:** Automate a background calculation using Epley’s formula: 1RM = Weight * (1 + Reps / 30) to log historical performance.
+
+### 3. ADVANCED ANALYTICS (BIOLOGICAL INSIGHTS)
+
+Build a data visualization or metric dashboard that processes logged sessions to show:
+*   **Volume Tracking:** Total active working sets per muscle group per week.
+*   **Anatomical Recovery Score:** When Day 1 (Push) is completed, tag Chest and Triceps as "Fatigued - 48h timer active". Visual flags should show these muscle systems changing color dynamically from Red (Fatigued) to Green (Recovered) across the schedule.
+
+Deliver the complete layout code (e.g., HTML/JS/Tailwind CSS stack, Python Streamlit, or a clean UI component framework layout) ready to deploy.

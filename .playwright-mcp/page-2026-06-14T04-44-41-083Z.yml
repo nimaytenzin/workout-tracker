@@ -1,0 +1,45 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e9]:
+        - heading "Couple Tracker" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Me & GF · workouts · BMI
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - heading "Stats" [level=2] [ref=e15]
+        - paragraph [ref=e16]: Per-person recovery and weekly volume
+      - generic [ref=e17]:
+        - button "Me" [ref=e18]: Me
+        - button "GF" [ref=e20]: GF
+      - generic [ref=e22]:
+        - button "Recovery" [ref=e23]:
+          - img
+          - text: Recovery
+        - button "Volume" [ref=e24]:
+          - img
+          - text: Volume
+      - paragraph [ref=e25]: Showing stats for Me
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - heading "Muscle Recovery" [level=3] [ref=e28]
+          - paragraph [ref=e29]: 48h timers after completing a workout day
+        - generic [ref=e30]:
+          - generic [ref=e31]: Fatigued
+          - generic [ref=e33]: Recovering
+          - generic [ref=e35]: Recovered
+  - navigation [ref=e37]:
+    - generic [ref=e38]:
+      - link "Workouts" [ref=e39] [cursor=pointer]:
+        - /url: /
+        - img [ref=e41]
+        - text: Workouts
+      - link "BMI" [ref=e43] [cursor=pointer]:
+        - /url: /weight
+        - img [ref=e45]
+        - text: BMI
+      - link "Stats" [ref=e49] [cursor=pointer]:
+        - /url: /analytics
+        - img [ref=e51]
+        - text: Stats

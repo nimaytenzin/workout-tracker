@@ -1,0 +1,86 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e9]:
+        - heading "Couple Tracker" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Me & GF · workouts · BMI
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - heading "Workout Template" [level=2] [ref=e16]
+          - paragraph [ref=e17]: PPL + UL split — log sets separately for Me & GF
+        - button "Load demo" [ref=e18]:
+          - img
+          - text: Load demo
+      - generic [ref=e19]:
+        - link "D1 Push Day Anterior & Extension 6 exercises · dual logging" [ref=e20] [cursor=pointer]:
+          - /url: /workout/push
+          - generic [ref=e23]:
+            - generic [ref=e24]: D1
+            - generic [ref=e25]:
+              - generic [ref=e26]: Push Day
+              - generic [ref=e27]: Anterior & Extension
+              - paragraph [ref=e28]:
+                - img [ref=e29]
+                - text: 6 exercises · dual logging
+            - img [ref=e35]
+        - link "D2 Pull Day Posterior & Flexion 7 exercises · dual logging" [ref=e38] [cursor=pointer]:
+          - /url: /workout/pull
+          - generic [ref=e41]:
+            - generic [ref=e42]: D2
+            - generic [ref=e43]:
+              - generic [ref=e44]: Pull Day
+              - generic [ref=e45]: Posterior & Flexion
+              - paragraph [ref=e46]:
+                - img [ref=e47]
+                - text: 7 exercises · dual logging
+            - img [ref=e53]
+        - link "D3 Legs & Abs Lower Body Isolation 8 exercises · dual logging" [ref=e56] [cursor=pointer]:
+          - /url: /workout/legs-abs
+          - generic [ref=e59]:
+            - generic [ref=e60]: D3
+            - generic [ref=e61]:
+              - generic [ref=e62]: Legs & Abs
+              - generic [ref=e63]: Lower Body Isolation
+              - paragraph [ref=e64]:
+                - img [ref=e65]
+                - text: 8 exercises · dual logging
+            - img [ref=e71]
+        - link "D4 Upper Day Antagonist Compound Duels 6 exercises · dual logging" [ref=e74] [cursor=pointer]:
+          - /url: /workout/upper
+          - generic [ref=e77]:
+            - generic [ref=e78]: D4
+            - generic [ref=e79]:
+              - generic [ref=e80]: Upper Day
+              - generic [ref=e81]: Antagonist Compound Duels
+              - paragraph [ref=e82]:
+                - img [ref=e83]
+                - text: 6 exercises · dual logging
+            - img [ref=e89]
+        - link "D5 Lower Day & Abs Heavy Axial Loading 6 exercises · dual logging" [ref=e92] [cursor=pointer]:
+          - /url: /workout/lower-abs
+          - generic [ref=e95]:
+            - generic [ref=e96]: D5
+            - generic [ref=e97]:
+              - generic [ref=e98]: Lower Day & Abs
+              - generic [ref=e99]: Heavy Axial Loading
+              - paragraph [ref=e100]:
+                - img [ref=e101]
+                - text: 6 exercises · dual logging
+            - img [ref=e107]
+  - navigation [ref=e110]:
+    - generic [ref=e111]:
+      - link "Workouts" [ref=e112] [cursor=pointer]:
+        - /url: /
+        - img [ref=e114]
+        - text: Workouts
+      - link "BMI" [ref=e116] [cursor=pointer]:
+        - /url: /weight
+        - img [ref=e118]
+        - text: BMI
+      - link "Stats" [ref=e122] [cursor=pointer]:
+        - /url: /analytics
+        - img [ref=e124]
+        - text: Stats

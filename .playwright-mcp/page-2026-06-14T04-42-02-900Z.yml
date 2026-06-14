@@ -1,0 +1,51 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e9]:
+        - heading "Couple Tracker" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Me & GF · workouts · BMI
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - link "Push Day" [ref=e16] [cursor=pointer]:
+            - /url: /
+            - img
+            - text: Push Day
+          - generic [ref=e17]: 1 / 6
+        - progressbar [ref=e18]
+      - generic [ref=e20]:
+        - heading "Barbell Flat Bench Press" [level=2] [ref=e21]
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - img [ref=e24]
+            - text: 180s rest
+          - generic [ref=e27]: "Me: 0 sets"
+          - generic [ref=e29]: "GF: 0 sets"
+        - generic [ref=e31]:
+          - generic [ref=e32]: Pectoralis Major - Sternocostal head
+          - generic [ref=e33]: Lateral Triceps
+      - generic [ref=e36]:
+        - button "Previous exercise" [disabled]:
+          - img
+        - generic [ref=e37]:
+          - paragraph [ref=e38]: Up next
+          - paragraph [ref=e39]: Seated Dumbbell Shoulder Press
+        - button "Next" [ref=e40]:
+          - text: Next
+          - img
+  - navigation [ref=e41]:
+    - generic [ref=e42]:
+      - link "Workouts" [ref=e43] [cursor=pointer]:
+        - /url: /
+        - img [ref=e45]
+        - text: Workouts
+      - link "BMI" [ref=e47] [cursor=pointer]:
+        - /url: /weight
+        - img [ref=e49]
+        - text: BMI
+      - link "Stats" [ref=e53] [cursor=pointer]:
+        - /url: /analytics
+        - img [ref=e55]
+        - text: Stats
