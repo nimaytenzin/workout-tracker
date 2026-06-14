@@ -52,7 +52,7 @@ export function DualExerciseLogger({
                   active ? 'bg-muted' : 'opacity-60',
                 )}
               >
-                {count}/{exercise.defaultSets}
+                {count} sets
               </span>
             </button>
           )
@@ -68,7 +68,7 @@ export function DualExerciseLogger({
           {user.name}&apos;s turn
         </span>
         <span className="text-muted-foreground">
-          {activeSets.length} of {Math.max(exercise.defaultSets, activeSets.length)} sets logged
+          {activeSets.length} sets logged
         </span>
       </div>
 

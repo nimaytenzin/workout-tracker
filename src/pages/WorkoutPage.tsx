@@ -157,7 +157,6 @@ export function WorkoutPage() {
                     <Timer className="size-3" />
                     {exercise.restSeconds}s rest
                   </span>
-                  <span>{exercise.defaultSets} sets target</span>
                   {USERS.map((u) => {
                     const n = byUser[u.id]?.length ?? 0
                     return (
@@ -166,7 +165,7 @@ export function WorkoutPage() {
                           className="size-1.5 rounded-full"
                           style={{ backgroundColor: u.color }}
                         />
-                        {n}/{exercise.defaultSets}
+                        {n} sets
                       </span>
                     )
                   })}
